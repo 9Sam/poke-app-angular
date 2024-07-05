@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "poke_app_angular": {
+   "poke-app-angular": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/poke_app_angular",
+            "outputPath": "dist/poke-app-angular",
             "index": "src/index.html",
             "browser": "src/main.ts",
             "polyfills": [
@@ -62,10 +62,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "poke_app_angular:build:production"
+            "buildTarget": "poke-app-angular:build:production"
             },
             "development": {
-              "buildTarget": "poke_app_angular:build:development"
+            "buildTarget": "poke-app-angular:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -73,7 +73,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "buildTarget": "poke_app_angular:build"
+            "buildTarget": "poke-app-angular:build"
           }
         },
         "test": {
@@ -94,8 +94,22 @@
             ],
             "scripts": []
           }
-        }
+      },
+      "lint": {
+         "builder": "@angular-eslint/builder:lint",
+         "options": {
+            "lintFilePatterns": [
+               "src/**/*.ts",
+               "src/**/*.html"
+            ]
+         }
       }
-    }
+   }
+   }
+},
+"cli": {
+   "schematicCollections": [
+      "@angular-eslint/schematics"
+   ]
   }
 }

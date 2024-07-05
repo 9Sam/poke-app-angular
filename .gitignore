@@ -43,3 +43,5 @@ Thumbs.db
 
 # Custom
 /diagrams
+.nx/cache
+.nx/workspace-data
