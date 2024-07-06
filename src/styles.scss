@@ -7,6 +7,20 @@
 @include mat.core();
 
 :root {
+   // *** APP PROPERTIES ***
+   // General
+   --app-max-width: 1200px;
+   --app-padding: 20px;
+   --app-separation-space: 20px;
+   --app-border-radius-default: 10px;
+   --app-h2-font-size: 2rem;
+   --app-h2-font-weight: 500;
+   // Colors
+   --app-primary-color: #185a7d;
+   --app-accent-color: #FFC600;
+   --app-warn-color: #FF0000;
+
+   // *** Material properties ***
    --mat-form-field-container-height: 30px;
    --mat-form-field-container-vertical-padding: 10px;
    --mat-form-field-container-text-weight: 500;
