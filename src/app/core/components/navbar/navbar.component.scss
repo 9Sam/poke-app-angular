@@ -1,0 +1,141 @@
+@use '../../../../material/core/theming/colors' as *;
+
+img {
+   height: 100%;
+   max-height: 51px;
+}
+
+.mat-form-field {
+   width: 100%;
+}
+
+.mat-select-panel {
+   border-radius: 30px;
+   background-color: red;
+}
+
+.navbar {
+   padding: 0 30px;
+   height: 70px;
+   min-height: 60px;
+}
+
+.navbar-form {
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   gap: 10px;
+}
+
+.navbar-container {
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+   width: 100%;
+   max-width: 1280px;
+   height: 100%;
+   margin: auto;
+}
+
+.navbar-buttons {
+   display: flex;
+   align-items: center; /* Vertically center the content */
+   justify-content: space-between;
+   height: 100%; /* Ensure the container takes full height */
+}
+
+.center-vertical {
+   display: flex;
+   align-items: center;
+   justify-content: center;
+}
+
+.mat-toolbar {
+   background-color: $background-color;
+}
+
+.mat-button {
+   color: white;
+}
+
+.mat-toolbar {
+   box-shadow: 0 8px 28px 0 #78b1b51a;
+}
+
+.mat-icon {
+   font-size: 26px;
+}
+
+.mat-mdc-button-touch-target{
+   margin: 0 auto;
+}
+
+.mat-icon-button {
+   margin-left: 30px;
+}
+
+mat-menu {
+   border: 1px solid #ccc;
+}
+
+::ng-deep .mat-mdc-menu-content {
+   width: 200px;
+   margin: 0;
+   padding: 0 !important;
+   border-radius: 10px;
+   list-style-type: none;
+}
+
+::ng-deep .mat-mdc-menu-item {
+   color:red
+}
+
+.navbar-form {
+   .mat-mdc-button {
+      height: 44px;
+      padding: 10px 16px;
+      border: 1px solid $primary-color;
+      border-radius: 10px;
+      font-size: 1rem;
+      color: $primary-color;
+   }
+}
+
+.search-icon-button {
+   position: absolute;
+   cursor: pointer;
+   top: -3px;
+   bottom: 0;
+   right: -12px;
+   width:30px;
+   height: 30px;
+   margin: auto;
+   color: $primary-color;
+   background-color: transparent;
+   border: none;
+}
+
+.search-icon {
+   position: absolute;
+   top: 0px;
+   right: 8px;
+   font-size: 30px;
+}
+
+#user-active-buttons {
+   display: none;
+}
+
+@media (min-width: 768px) {
+   #user-active-buttons {
+      display: flex;
+   }
+}
+
+/* Medium devices (desktops, 992px and up) */
+@media (min-width: 992px) {
+}
+
+/* Large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) {
+}
