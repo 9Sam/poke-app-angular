@@ -6,14 +6,24 @@
 
 @include mat.core();
 
+:root {
+   --mat-form-field-container-height: 30px;
+   --mat-form-field-container-vertical-padding: 10px;
+   --mat-form-field-container-text-weight: 500;
+   --mat-select-trigger-text-weight: 500;
+   --mdc-outlined-text-field-outline-color: #185a7d;
+   --mdc-outlined-text-field-input-text-color: #185a7d;
+   --mdc-text-button-label-text-tracking: 0.2;
+}
+
+// Colors
+$blue-background: #e7eff5;
+
 // Define the palettes for your theme using the Material Design palettes available in palette.scss
 // (imported above). For each palette, you can optionally specify a default, lighter, and darker
 // hue. Available color palettes: https://material.io/design/color/
 $poke-app-angular-primary: mat.define-palette($blue-palette, 900);
-$poke-app-angular-accent: mat.define-palette(
-   $yellow-palette,
-   400
-);
+$poke-app-angular-accent: mat.define-palette($yellow-palette, 400);
 
 // The warn palette is optional (defaults to red).
 $poke-app-angular-warn: mat.define-palette(mat.$red-palette);
@@ -27,20 +37,103 @@ $poke-app-angular-theme: mat.define-light-theme(
          accent: $poke-app-angular-accent,
          warn: $poke-app-angular-warn,
       ),
-      typography: mat.define-typography-config(),
+      typography:
+         mat.define-typography-config(
+            $font-family: "Poppins",
+         ),
       density: 0,
    )
 );
 
-// Include theme styles for core and each component used in your app.
-// Alternatively, you can import and @include the theme mixins for each component
-// that you are using.
 @include mat.all-component-themes($poke-app-angular-theme);
-
 
 // GENERAL CSS STYLES
 body {
-   font-family: 'Poppins', sans-serif;
+   font-family: "Poppins", sans-serif;
    margin: 0;
    padding: 0;
+}
+
+mat-pseudo-checkbox{
+   display: none !important;
+}
+
+.mdc-text-field--outlined {
+   --mdc-outlined-text-field-container-shape: 10px;
+}
+
+.mat-mdc-select-panel {
+   padding: 0 !important;
+   margin-top: 10px;
+   border-radius: 10px !important;
+}
+
+.mat-mdc-menu-panel {
+   padding: 0 !important;
+   margin-top: 10px;
+   border-radius: 10px !important;
+}
+
+.mat-mdc-menu-item {
+   color: mat.get-color-from-palette($blue-palette, 900) !important;
+}
+
+.mat-mdc-option {
+   color: mat.get-color-from-palette($blue-palette, 900) !important;
+   border-bottom: 1px solid mat.get-color-from-palette($blue-palette, 900) !important;
+}
+
+.mat-mdc-option:nth-last-child(1){
+   border-bottom: none !important;
+}
+
+.mat-mdc-option-active {
+   background-color: $blue-background !important;
+}
+
+.mat-mdc-select {
+   color: mat.get-color-from-palette($blue-palette, 900) !important;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+
+   .mat-mdc-select-trigger {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+   }
+
+   .mat-mdc-select-value {
+      width: auto;
+      margin-right: 6px;
+   }
+}
+
+.mat-mdc-select-arrow svg {
+   fill: mat.get-color-from-palette($blue-palette, 900) !important;
+}
+
+.mat-form-field-appearance-outline .mat-form-field-outline-thick {
+   color: white;
+}
+
+.mat-mdc-select{
+   display: flex !important;
+   align-items: center !important;
+   justify-content: center !important;
+}
+
+.mat-option .mat-option-text {
+   flex-grow: 1 !important;
+   display: flex !important;
+   align-items: center !important;
+}
+
+.mat-select-arrow-wrapper {
+   margin-top: 4px !important; /* Adjust as needed */
+}
+
+.mat-select-arrow {
+   // background-image: url('path/to/your/icon.svg');
+   transform: rotate(90deg);
 }
