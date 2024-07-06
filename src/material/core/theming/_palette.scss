@@ -1,4 +1,4 @@
-$dark-primary-text: #000000;
+@use './colors' as *;
 
 $blue-palette: (
    50: #e2f5f8,
