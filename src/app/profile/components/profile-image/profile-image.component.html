@@ -1,0 +1,46 @@
+<div class="profile-image-container">
+   <div>
+      <h2>Imagen de perfil</h2>
+      <div class="profile-image-circle">
+         @if (imageUrl) {
+            <img class="profile-image" [src]="imageUrl" alt="Profile Image" />
+         } @else {
+            <div class="profile-image no-image">
+               <img src="assets/icons/user_24px.png" alt="No Image" />
+            </div>
+         }
+      </div>
+   </div>
+
+   <div class="profile-image-upload">
+      <input
+         id="fileInput"
+         type="file"
+         (change)="onFileSelected($event)"
+         accept="image/*"
+      />
+      <div class="custom-file-upload">
+         <div class="custom-file-upload-container">
+            <span>
+               @if (!imageUrl) {
+                  Adjunta una foto
+               } @else {
+                  Cambia la foto
+               }
+            </span>
+            @if (!imageUrl) {
+               <label for="fileInput">
+                  <img src="assets/icons/cloud_upload_24px.png" alt="Upload" />
+               </label>
+            } @else {
+               <button class="delete-button" (click)="deleteImage()">
+                  <img
+                     src="assets/icons/restore_from_trash_24px.png"
+                     alt="Trash"
+                  />
+               </button>
+            }
+         </div>
+      </div>
+   </div>
+</div>

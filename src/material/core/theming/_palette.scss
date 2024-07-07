@@ -10,7 +10,7 @@ $blue-palette: (
    600: #309dc3,
    700: #258ab1,
    800: #23799e,
-   900: #185a7d,
+   900: var(--app-primary-color),
    contrast: (
       50: $dark-primary-text,
       100: $dark-primary-text,
@@ -30,12 +30,12 @@ $yellow-palette: (
    100: #ffebaf,
    200: #ffdf8a,
    300: #ffd342,
-   400: #ffc800,
+   400: var(--app-accent-color),
    500: #ffbe00,
    600: #ffb000,
    700: #ff9c00,
    800: #ff8a00,
-   900: #ff6800,
+   900: #ff6c00,
    contrast: (
       50: $dark-primary-text,
       100: $dark-primary-text,

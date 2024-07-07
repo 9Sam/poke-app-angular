@@ -7,13 +7,72 @@
 @include mat.core();
 
 :root {
-   --mat-form-field-container-height: 30px;
+   // *** APP PROPERTIES ***
+   // General
+   --app-max-width: 1200px;
+   --app-padding: 20px;
+   --app-margin: 20px;
+   --app-separation-space: 20px;
+   --app-border-radius-default: 10px;
+   --app-h2-font-size: 2rem;
+   --app-h2-font-weight: 500;
+   --app-h5-font-weight: 400;
+
+   // Colors
+   --app-primary-color: #185a7d;
+   --app-accent-color: #ffc600;
+   --app-warn-color: #ff0000;
+   --app-lines-color: #9bb8d3;
+   --app-dark-gray-color: #aaaaaa;
+
+   // *** MATERIAL PROPERTIES ***
+   // form field
+   --mat-form-field-container-height: 50px;
    --mat-form-field-container-vertical-padding: 10px;
-   --mat-form-field-container-text-weight: 500;
-   --mat-select-trigger-text-weight: 500;
+   --mat-form-field-container-text-weight: 400;
    --mdc-outlined-text-field-outline-color: #185a7d;
-   --mdc-outlined-text-field-input-text-color: #185a7d;
+   --mdc-outlined-text-field-input-text-color: black;
    --mdc-text-button-label-text-tracking: 0.2;
+
+   // select
+   --mat-select-trigger-text-weight: 500;
+   --mat-option-hover-state-layer-color: #e7eff5;
+
+   // calendar
+   --mat-datepicker-calendar-date-selected-state-background-color: var(
+      --app-primary-color
+   );
+   --mat-datepicker-calendar-date-selected-disabled-state-background-color: red;
+   --mat-datepicker-calendar-date-focus-state-background-color: var(
+      --app-primary-color
+   );
+   --mat-datepicker-calendar-date-hover-state-background-color: var(
+      --app-primary-color
+   );
+   --mat-datepicker-toggle-active-state-icon-color: var(--app-primary-color);
+   --mat-datepicker-calendar-date-in-range-state-background-color: rgba(
+      var(--app-primary-color),
+      0.2
+   );
+   --mat-datepicker-calendar-date-in-comparison-range-state-background-color: rgba(
+      249,
+      171,
+      0,
+      0.2
+   );
+   --mat-datepicker-calendar-date-text-color: inherit;
+   --mat-datepicker-calendar-date-in-overlap-range-state-background-color: #a8dab5;
+   --mat-datepicker-calendar-date-in-overlap-range-selected-state-background-color: #46a35e;
+   --mat-datepicker-calendar-header-divider-color: rgba(0, 0, 0, 0.12);
+   --mat-datepicker-calendar-date-today-outline-color: var(--app-primary-color);
+   --mat-datepicker-calendar-date-today-disabled-state-outline-color: green;
+   --mat-datepicker-calendar-date-outline-color: transparent;
+   --mat-datepicker-calendar-date-disabled-state-text-color: var(
+      --app-primary-color
+   );
+   --mat-datepicker-calendar-date-preview-state-outline-color: pink;
+   --mat-datepicker-calendar-container-background-color: white;
+   --mat-datepicker-calendar-container-text-color: red;
 }
 
 // Colors
@@ -54,8 +113,30 @@ body {
    padding: 0;
 }
 
-mat-pseudo-checkbox{
+mat-pseudo-checkbox {
    display: none !important;
+}
+
+div.mat-mdc-autocomplete-panel {
+   padding: 0 !important;
+   border-radius: 20px !important;
+}
+
+// Custom components
+.button {
+   padding: 20px 45px !important;
+   border-radius: var(--app-border-radius-default) !important;
+   color: white !important;
+}
+
+.button:disabled {
+   color: var(--app-dark-gray-color) !important;
+}
+
+// Material custom components
+.mdc-text-field--outlined .mat-mdc-form-field-infix,
+.mat-mdc-form-field-infix {
+   padding-top: 15px !important;
 }
 
 .mdc-text-field--outlined {
@@ -65,7 +146,7 @@ mat-pseudo-checkbox{
 .mat-mdc-select-panel {
    padding: 0 !important;
    margin-top: 10px;
-   border-radius: 10px !important;
+   border-radius: 20px !important;
 }
 
 .mat-mdc-menu-panel {
@@ -80,10 +161,10 @@ mat-pseudo-checkbox{
 
 .mat-mdc-option {
    color: mat.get-color-from-palette($blue-palette, 900) !important;
-   border-bottom: 1px solid mat.get-color-from-palette($blue-palette, 900) !important;
+   border-bottom: 1px solid var(--app-lines-color) !important;
 }
 
-.mat-mdc-option:nth-last-child(1){
+.mat-mdc-option:nth-last-child(1) {
    border-bottom: none !important;
 }
 
@@ -117,7 +198,7 @@ mat-pseudo-checkbox{
    color: white;
 }
 
-.mat-mdc-select{
+.mat-mdc-select {
    display: flex !important;
    align-items: center !important;
    justify-content: center !important;
@@ -136,4 +217,37 @@ mat-pseudo-checkbox{
 .mat-select-arrow {
    // background-image: url('path/to/your/icon.svg');
    transform: rotate(90deg);
+}
+
+// Calendar
+mat-datepicker-toggle {
+   color: var(--app-primary-color) !important;
+}
+
+mat-month-view.mat-calendar-body-active {
+   color: white !important;
+}
+
+mat-year-view .mat-calendar-body-active {
+   color: white !important;
+}
+
+mat-multi-year-view .mat-calendar-body-active {
+   color: black !important;
+}
+
+mat-calendar-body-cell mat-calendar-body-active {
+   color: black !important;
+}
+
+.mat-calendar-body-selected {
+   color: white !important;
+}
+
+.mat-calendar-body-cell:hover {
+   color: white !important;
+}
+
+.mat-calendar-body-active {
+   color: white !important;
 }

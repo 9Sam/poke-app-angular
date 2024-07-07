@@ -1,42 +1,50 @@
-<mat-toolbar class="navbar blur-background" color="primary">
-   <div class="navbar-container">
-      <img src="assets/images/pokemon_logo.png" alt="Logo" />
-      <div class="navbar-buttons" id="user-active-buttons">
-         <div class="navbar-form">
-            <button mat-button [matMenuTriggerFor]="menu">José Martinez</button>
-
-            <mat-menu #menu="matMenu">
-               <button mat-menu-item>Action 1</button>
-               <button mat-menu-item>Action 2</button>
-            </mat-menu>
-
-            @if (isSearching()){
-            <mat-form-field style="margin-left: 20px" color="primary">
-               <input
-                  #searchInputElem
-                  matInput
-                  (blur)="handleBlur()"
-                  [(ngModel)]="searchInput"
-                  autocomplete="off"
-                  placeholder="Buscar pokemon"
-               />
-               <button class="search-icon-button" (click)="handleSearchClose()">
-                  <mat-icon class="search-icon" color="primary">close</mat-icon>
+<div class="container">
+   <mat-toolbar class="navbar blur-background" color="primary">
+      <div class="navbar-container">
+         <img src="assets/images/pokemon_logo.png" alt="Logo" />
+         <div class="navbar-buttons" id="user-active-buttons">
+            <div class="navbar-form">
+               <button mat-button [matMenuTriggerFor]="menu">
+                  José Martinez
                </button>
 
-            </mat-form-field>
-            } @if (!isSearching()){
-            <button
-               class="mat-icon-button"
-               type="button"
-               mat-icon-button
-               aria-label="Icon search button"
-               (click)="handleSearchClick()"
-            >
-               <mat-icon color="primary">search</mat-icon>
-            </button>
-            }
+               <mat-menu #menu="matMenu">
+                  <button mat-menu-item>Action 1</button>
+                  <button mat-menu-item>Action 2</button>
+               </mat-menu>
+
+               @if (isSearching()){
+               <mat-form-field style="margin-left: 20px" color="primary">
+                  <input
+                     #searchInputElem
+                     matInput
+                     (blur)="handleBlur()"
+                     [(ngModel)]="searchInput"
+                     autocomplete="off"
+                     placeholder="Buscar pokemon"
+                  />
+                  <button
+                     class="search-icon-button"
+                     (click)="handleSearchClose()"
+                  >
+                     <mat-icon class="search-icon" color="primary"
+                        >close</mat-icon
+                     >
+                  </button>
+               </mat-form-field>
+               } @if (!isSearching()){
+               <button
+                  class="mat-icon-button"
+                  type="button"
+                  mat-icon-button
+                  aria-label="Icon search button"
+                  (click)="handleSearchClick()"
+               >
+                  <mat-icon color="primary">search</mat-icon>
+               </button>
+               }
+            </div>
          </div>
       </div>
-   </div>
-</mat-toolbar>
+   </mat-toolbar>
+</div>
