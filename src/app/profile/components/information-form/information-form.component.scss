@@ -1,0 +1,55 @@
+h2 {
+   font-size: var(--app-h2-font-size);
+   font-weight: var(--app-h2-font-weight);
+   margin: 10px 0;
+   color: var(--app-primary-color);
+}
+
+h5 {
+   font-size: 18px;
+   font-weight: var(--app-h5-font-weight);
+   margin: 0px 0;
+   color: #AAAAAA;
+}
+
+form {
+   margin: auto;
+}
+
+.title {
+   margin-bottom: var(--app-separation-space);
+}
+
+.profile-form-container {
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   align-items: center;
+   margin: auto;
+   max-width: 380px;
+}
+
+.profile-form {
+   display: flex;
+   flex-direction: column;
+   width: 100%;
+   margin: 0 auto;
+   gap: var(--app-separation-space);
+}
+
+.buttons-container {
+   display: flex;
+   justify-content: center;
+   margin-top: calc(var(--app-separation-space) * 2);
+   padding: 0 20px;
+   
+}
+
+// .mat-mdc-chip-input {
+//    visibility: hidden;
+// } 
+
+input.mat-mdc-chip-input {
+   // height: 0 !important;
+   display: none;
+}
