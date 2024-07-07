@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { NavbarComponent } from '../../core/components/navbar/navbar.component';
-import { ProfileComponent } from '../../profile/profile/profile.component';
+import { ProfileComponent } from '../../profile/profile.component';
 
 @Component({
    selector: 'app-template',
