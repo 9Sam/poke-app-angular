@@ -25,7 +25,9 @@
    @defer (on immediate) {
       <cdk-virtual-scroll-viewport itemSize="50" class="pokemon-list-viewport">
          <div class="pokemon-list">
-            <div *cdkVirtualFor="let pokemon of filteredPokemons; let i = index">
+            <div
+               *cdkVirtualFor="let pokemon of filteredPokemons; let i = index"
+            >
                <div class="pokemon-item">
                   <app-profile-small-card
                      [id]="pokemon.id"
@@ -37,16 +39,22 @@
             </div>
          </div>
       </cdk-virtual-scroll-viewport>
-      
+
       <div class="buttons-container">
-         <button type="button" class="button" mat-flat-button color="primary" (click)="onClickContinue()" [disabled]="selectedPokemons.size !== 3">
+         <button
+            type="button"
+            class="button"
+            mat-flat-button
+            color="primary"
+            (click)="onClickContinue()"
+            [disabled]="selectedPokemons.size !== 3"
+         >
             Continuar
          </button>
       </div>
-   }@loading {
+   } @loading {
       <div class="spinner">
          <mat-spinner [diameter]="40"></mat-spinner>
       </div>
    }
-
 </div>
