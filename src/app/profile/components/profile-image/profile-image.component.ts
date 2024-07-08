@@ -20,6 +20,7 @@ export class ProfileImageComponent {
    user = signal<UserI>({} as UserI);
 
    isPreview = input<boolean>(false);
+   showBadge = input<boolean>(false);
 
    constructor() {
       this.userService.getCurrentUser().subscribe((user) => {

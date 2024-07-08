@@ -17,8 +17,10 @@ import { LoadingIndicatorComponent } from '@shared/components/loading-indicator/
    styleUrl: './edit-profile.component.scss',
 })
 export class EditProfileComponent {
+   imageUrl: string | ArrayBuffer | null = null;
+
    onImageSelected(imageUrl: string | ArrayBuffer | null) {
-      console.log('imageUrl', imageUrl);
+      this.imageUrl = imageUrl;
    }
 
    onCreateUserEvent(user: any) {

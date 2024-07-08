@@ -1,0 +1,20 @@
+.preview-pokemon-header {
+   display: flex;
+   flex-direction: row;
+   justify-content: space-between;
+   align-items: center;
+   gap: 10px;
+}
+
+.preview-pokemon-list {
+   display: flex;
+   flex-direction: column;
+   gap: 10px;
+   padding-top: var(--app-padding);
+}
+
+::ng-deep .mat-mdc-outlined-button:not(:disabled) {
+   --mdc-outlined-button-outline-color: var(--app-primary-color) !important;
+   color: var(--app-primary-color) !important;
+   border-radius: var(--app-border-radius-default) !important;
+}

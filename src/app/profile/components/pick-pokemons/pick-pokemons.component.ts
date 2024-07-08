@@ -138,12 +138,8 @@ export class PickPokemonsComponent implements OnInit {
    }
 
    private filterPokemons(val: string): any[] {
-      console.log('filterPokemons', val);
-
       if (val) {
          const filterValue = val.toLowerCase();
-
-         console.log('filterValue', filterValue);
 
          return this.pokemonsSub
             .getValue()

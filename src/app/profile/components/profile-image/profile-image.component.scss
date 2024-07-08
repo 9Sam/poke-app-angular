@@ -121,6 +121,18 @@ input[type="file"] {
    }
 }
 
+.profile-badge {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+
+    img {
+        width: 60px;
+        height: 55px;
+    }
+}
+
 @media (min-width: 768px) {
    #profile-image-container {
       border-radius: 50px;

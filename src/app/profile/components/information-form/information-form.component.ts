@@ -128,7 +128,6 @@ export class InformationFormComponent implements OnInit {
 
    ngOnInit(): void {
       this.hobbyService.getHobbies().subscribe((hobbies) => {
-         console.log('hobbies', hobbies);
          this.allHobbies = hobbies;
       });
 

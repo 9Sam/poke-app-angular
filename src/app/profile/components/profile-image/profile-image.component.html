@@ -1,8 +1,15 @@
 <div class="profile-image-container">
    <div>
-      <h2>{{ getTitle() }}</h2>
+      @if(showBadge()){
+         <div class="profile-badge">
+            <h2>Entrenador</h2>
+            <img src="assets/icons/badge.png" alt="Badge" />
+         </div>
+      }@else{
+         <h2>{{ getTitle() }}</h2>
+      }
 
-      @if (isPreview()) {
+      @if (isPreview() || showBadge()) {
          <div class="profile-image-circle">
             <img
                class="profile-image"
@@ -12,7 +19,7 @@
          </div>
       }
 
-      @if (!isPreview()) {
+      @if (!isPreview() && !showBadge()) {
          <div class="profile-image-circle">
             @if (imageUrl) {
                <img
@@ -29,22 +36,33 @@
       }
    </div>
 
-   @if (isPreview()) {
+   @if (isPreview() || showBadge()) {
       <div class="profile-info-container">
          <div class="profile-info-item">
             <h4>Pasatiempo</h4>
             <p>{{ user().favoriteHobby }}</p>
-            <!-- <p>{{ "test date"}}</p> -->
          </div>
          <div class="profile-info-item">
             <h4>Edad</h4>
             <p>{{ getUserAge() }}</p>
-            <!-- <p>{{ "test data" }}</p> -->
          </div>
+         @if(user().dui){
+            <div class="profile-info-item">
+               <h4>DUI</h4>
+               <p>{{ user().dui }}</p>
+            </div>
+         }
+
+         @if(user().document){
+            <div class="profile-info-item">
+               <h4>Documento</h4>
+               <p>{{ user().document }}</p>
+            </div>
+         }
       </div>
    }
 
-   @if (!isPreview()) {
+   @if (!isPreview() && !showBadge()) {
       <div class="profile-image-upload">
          <input
             id="fileInput"
