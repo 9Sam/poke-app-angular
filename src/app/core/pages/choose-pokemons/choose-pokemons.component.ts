@@ -1,9 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { InformationFormComponent } from '../../../profile/components/information-form/information-form.component';
 import { ProfileImageComponent } from '../../../profile/components/profile-image/profile-image.component';
 import { HeaderComponent } from '@shared/components/header/header.component';
 import { PickPokemonsComponent } from '../../../profile/components/pick-pokemons/pick-pokemons.component';
 import { LoadingIndicatorComponent } from '@shared/components/loading-indicator/loading-indicator.component';
+import { Router } from '@angular/router';
 
 @Component({
    selector: 'app-choose-pokemons',
@@ -19,15 +20,17 @@ import { LoadingIndicatorComponent } from '@shared/components/loading-indicator/
    ],
 })
 export class ChoosePokemonsComponent {
+   router = inject(Router);
+
    onPokemonsSelected(pokemons: Set<number>) {
-      console.log('selectedpokemons', pokemons);
+      this.router.navigate(['/preview'], { state: { pokemons } });
    }
 
    getTitle() {
-      return 'Seleccionando pokemons';
+      return '¡Ya casi terminamos!';
    }
 
    getSubtitle() {
-      return 'Selecciona los pokemons que te gusten.';
+      return 'Revisa la información y completa lo solicitado.';
    }
 }

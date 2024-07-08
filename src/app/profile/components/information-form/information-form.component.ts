@@ -66,7 +66,7 @@ export class InformationFormComponent implements OnInit {
    editing = input<boolean>(false);
 
    loadingSub = this.loadingService.loadingSubject;
-   createUserEvent = output<UserI | undefined>({});
+   createUserEvent = output<UserI>({});
 
    user: Signal<UserI | undefined> = signal(undefined);
    hobbies: string[] = [];
@@ -150,19 +150,16 @@ export class InformationFormComponent implements OnInit {
    submit(): void {
       this.loadingService.loadingSubject.next(true);
 
-      this.userService
-         .createUser({
-            name: this.profileForm.value.name,
-            favoriteHobby: this.hobbies[0] ?? '',
-            birthday: this.profileForm.value.birthday,
-            document: this.profileForm.value.document,
-            dui: this.profileForm.value.dui ?? '',
-         } as UserI)
-         .subscribe((user) => {
-            this.createUserEvent.emit(user);
+      const user = {
+         name: this.profileForm.value.name,
+         favoriteHobby: this.hobbies[0] ?? '',
+         birthday: this.profileForm.value.birthday,
+         document: this.profileForm.value.document,
+         profilePicture: '',
+         dui: this.profileForm.value.dui ?? '',
+      } as UserI;
 
-            localStorage.setItem('user', JSON.stringify(user));
-         });
+      this.createUserEvent.emit(user);
    }
 
    add(event: MatChipInputEvent): void {

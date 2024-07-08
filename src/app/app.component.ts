@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { LoadingIndicatorComponent } from './shared/components/loading-indicator/loading-indicator.component';
-import { LoadingService } from './shared/services/loading/loading.service';
+// import { LoadingService } from './shared/services/loading/loading.service';
 import { NavbarComponent } from './core/components/navbar/navbar.component';
 
 @Component({
@@ -12,9 +12,9 @@ import { NavbarComponent } from './core/components/navbar/navbar.component';
    imports: [RouterOutlet, LoadingIndicatorComponent, NavbarComponent],
 })
 export class AppComponent {
-   loadingService = new LoadingService();
+   // loadingService = new LoadingService();
 
-   loadingSub = this.loadingService.loadingSubject;
+   // loadingSub = this.loadingService.loadingSubject;
 
    title = 'poke-app-angular';
 }

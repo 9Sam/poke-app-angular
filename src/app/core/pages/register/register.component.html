@@ -1,25 +1,25 @@
-<!-- @if (!loadingSub.getValue()) { -->
-<app-header [title]="getTitle()" [subtitle]="getSubtitle()"></app-header>
+@defer (on timer(2000)) {
+   <app-header [title]="getTitle()" [subtitle]="getSubtitle()"></app-header>
 
-<div class="container">
-   <div class="grid-container">
-      <div class="grid-item">
-         <div class="profile-image-container">
-            <app-profile-image
-               (imageSelectedEvent)="onImageSelected($event)"
-            ></app-profile-image>
+   <div class="container">
+      <div class="grid-container">
+         <div class="grid-item">
+            <div class="profile-image-container">
+               <app-profile-image
+                  (imageSelectedEvent)="onImageSelected($event)"
+               ></app-profile-image>
+            </div>
          </div>
-      </div>
-      <div class="grid-item">
-         <div>
-            <app-information-form
-               (createUserEvent)="onCreateUserEvent($event)"
-               [editing]="true"
-            ></app-information-form>
+         <div class="grid-item">
+            <div>
+               <app-information-form
+                  (createUserEvent)="onCreateUserEvent($event)"
+                  [editing]="true"
+               ></app-information-form>
+            </div>
          </div>
       </div>
    </div>
-</div>
-<!-- } @else {
-   <app-loading-indicator text="Cargando perfil..."></app-loading-indicator>
-} -->
+} @placeholder {
+   <app-loading-indicator text="Cargando inicio..."></app-loading-indicator>
+}

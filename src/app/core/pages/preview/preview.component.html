@@ -1,0 +1,21 @@
+@defer (on timer(2000)) {
+   <app-header [title]="getTitle()" [subtitle]="getSubtitle()"></app-header>
+
+   <div class="container">
+      <div class="grid-container">
+         <div class="grid-item">
+            <div class="profile-image-container">
+               <app-profile-image
+               ></app-profile-image>
+            </div>
+         </div>
+         <div class="grid-item">
+            <div>
+
+            </div>
+         </div>
+      </div>
+   </div>
+} @placeholder {
+   <app-loading-indicator text="Cargando perfil..."></app-loading-indicator>
+}
