@@ -18,7 +18,7 @@
    },
    "peacock.color": "#FFDC62",
    "editor.tokenColorCustomizations": {
-      "comments": "#a2a2a2",
+      "comments": "",
       "textMateRules": [
          {
             "scope": "meta.paragraph",

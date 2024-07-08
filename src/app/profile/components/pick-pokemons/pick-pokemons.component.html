@@ -1,0 +1,60 @@
+<div class="pick-pokemons-container">
+   <h2>Pokémon</h2>
+   <h5>Selecciona 3 Pokémon para que sean parte de tu equipo</h5>
+
+   <form class="pokemon-search-form">
+      <div class="search-input">
+         <input
+            type="text"
+            placeholder="Buscar por índice, nombre..."
+            [formControl]="searchControl"
+            [matAutocomplete]="auto"
+            class="search-input"
+         />
+         <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+            @for (option of filteredOptions | async; track option) {
+               <mat-option [value]="option">{{ option.name }}</mat-option>
+            }
+         </mat-autocomplete>
+         <div class="icon">
+            <mat-icon matPrefix color="primary">search</mat-icon>
+         </div>
+      </div>
+   </form>
+
+   @defer (on immediate) {
+      <cdk-virtual-scroll-viewport itemSize="50" class="pokemon-list-viewport">
+         <div class="pokemon-list">
+            <div
+               *cdkVirtualFor="let pokemon of filteredPokemons; let i = index"
+            >
+               <div class="pokemon-item">
+                  <app-profile-small-card
+                     [id]="pokemon.id"
+                     class="item"
+                     [pokemon]="pokemon"
+                     (clickCardEvent)="onClickCard($event)"
+                  ></app-profile-small-card>
+               </div>
+            </div>
+         </div>
+      </cdk-virtual-scroll-viewport>
+
+      <div class="buttons-container">
+         <button
+            type="button"
+            class="button"
+            mat-flat-button
+            color="primary"
+            (click)="onClickContinue()"
+            [disabled]="selectedPokemons.size !== 3"
+         >
+            Continuar
+         </button>
+      </div>
+   } @loading {
+      <div class="spinner">
+         <mat-spinner [diameter]="40"></mat-spinner>
+      </div>
+   }
+</div>

@@ -1,0 +1,140 @@
+h2 {
+   margin-top: 40px;
+   padding-bottom: var(--app-padding);
+   text-align: center;
+   font-weight: var(--app-h2-font-weight);
+   font-size: var(--app-h2-font-size);
+}
+
+input[type="file"] {
+   display: none;
+}
+
+.profile-image-container {
+   width: auto;
+   height: 560px;
+   padding: var(--app-padding);
+   border-radius: 40px;
+   background-color: var(--app-accent-color);
+   padding-bottom: 20px;
+}
+
+.profile-image-circle {
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   width: 269px;
+   height: 269px;
+   margin: 0 auto;
+   border-radius: 100%;
+   box-shadow: 0 4px 4px 0 #00000031;
+   background-color: white;
+
+   .profile-image {
+      width: 90%;
+      height: 90%;
+      border-radius: 100%;
+      object-fit: cover;
+      object-position: center;
+      background-color: white;
+   }
+
+   .no-image {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 90%;
+      height: 90%;
+      border-radius: 100%;
+      background-color: #e7eff5;
+   }
+}
+
+.profile-image-upload {
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   margin-top: 40px;
+}
+
+.custom-file-upload {
+   width: 100%;
+   padding: 24px 18px;
+   font-size: 0.8rem;
+   background-color: white;
+   color: var(--app-primary-color);
+   border: 1px dotted #007bff;
+   border-radius: var(--app-border-radius-default);
+   margin: 10px;
+
+   .custom-file-upload-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: auto;
+      height: 100%;
+   }
+
+   label {
+      cursor: pointer;
+      transition: all 0.3s ease-in-out;
+   }
+
+   button {
+      cursor: pointer;
+      transition: all 0.3s ease-in-out;
+   }
+}
+
+.delete-button {
+   border: none;
+   padding: 0;
+   background-color: transparent;
+   z-index: 1;
+
+   img {
+      width: 16px;
+      height: 19px;
+   }
+}
+
+.profile-info-container {
+   display: flex;
+   flex-direction: column;
+   padding: 40px 10px;
+   justify-content: space-between;
+   align-items: start;
+   max-width: 340px;
+   margin: 0 auto;
+
+   h4 {
+      margin: 0;
+      padding: 6px 0px;
+   }
+
+   .profile-info-item {
+      display: flex;
+      flex-direction: row;
+      width: 100%;
+      justify-content: space-between;
+      align-items: center;
+   }
+}
+
+.profile-badge {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+
+    img {
+        width: 60px;
+        height: 55px;
+    }
+}
+
+@media (min-width: 768px) {
+   #profile-image-container {
+      border-radius: 50px;
+   }
+}

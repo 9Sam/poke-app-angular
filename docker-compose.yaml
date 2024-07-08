@@ -1,0 +1,5 @@
+services:
+  poke-app-angular:
+    build: .
+    ports:
+      - "4200:4200"

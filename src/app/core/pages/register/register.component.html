@@ -1,0 +1,25 @@
+@defer (on timer(2000)) {
+   <app-header [title]="getTitle()" [subtitle]="getSubtitle()"></app-header>
+
+   <div class="container">
+      <div class="grid-container">
+         <div class="grid-item">
+            <div class="profile-image-container">
+               <app-profile-image
+                  (imageSelectedEvent)="onImageSelected($event)"
+               ></app-profile-image>
+            </div>
+         </div>
+         <div class="grid-item">
+            <div>
+               <app-information-form
+                  (createUserEvent)="onCreateUserEvent($event)"
+                  [editing]="true"
+               ></app-information-form>
+            </div>
+         </div>
+      </div>
+   </div>
+} @placeholder {
+   <app-loading-indicator text="Cargando inicio..."></app-loading-indicator>
+}

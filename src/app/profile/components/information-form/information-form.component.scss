@@ -1,0 +1,37 @@
+form {
+   margin: auto;
+}
+
+.title {
+   margin-bottom: var(--app-separation-space);
+}
+
+.profile-form-container {
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   align-items: center;
+   margin: auto;
+   max-width: 380px;
+}
+
+.profile-form {
+   display: flex;
+   flex-direction: column;
+   width: 100%;
+   margin: 0 auto;
+   gap: var(--app-separation-space);
+}
+
+.buttons-container {
+   display: flex;
+   justify-content: center;
+   margin-top: calc(var(--app-separation-space) * 2);
+   padding: 0 20px;
+   
+}
+
+input.mat-mdc-chip-input {
+   // height: 0 !important;
+   display: none;
+}

@@ -1,0 +1,19 @@
+<div
+   class="profile-card"
+   [class.profile-card-selected]="pokemon.isSelected"
+   [class.profile-card-disabled]="!pokemon.isAvailable"
+   role="button"
+   (click)="onClickCard()"
+   (keyup)="onClickCard()"
+   tabindex="0"
+>
+   <div class="profile-card-image">
+      <img [src]="pokemon.sprite" alt="Pokemon sprite" />
+   </div>
+   <div class="profile-card-info">
+      <div class="profile-card-id">#{{ pokemon.id }}</div>
+      <div class="profile-card-name">
+         {{ pokemon.name }}
+      </div>
+   </div>
+</div>

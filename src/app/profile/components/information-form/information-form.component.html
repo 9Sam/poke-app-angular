@@ -1,0 +1,110 @@
+<div class="profile-form-container">
+   <div class="title">
+      <h2>Tu información</h2>
+      <h5>Completa la siguiente información para continuar</h5>
+   </div>
+
+   <form class="profile-form" [formGroup]="profileForm" (submit)="submit()">
+      <mat-form-field>
+         <mat-label>Nombre</mat-label>
+         <input formControlName="name" matInput required />
+         @if (profileForm.controls["name"].hasError("required")) {
+            <mat-error>Valor requerido</mat-error>
+         }
+      </mat-form-field>
+
+      <mat-form-field class="example-chip-list">
+         <mat-label>Pasatiempo favorito</mat-label>
+         <mat-chip-grid #chipGrid aria-label="Hobby selection">
+            @for (hobby of hobbies; track hobby) {
+               <mat-chip-row (removed)="remove(hobby)">
+                  {{ hobby }}
+                  <button matChipRemove [attr.aria-label]="'remove ' + hobby">
+                     <mat-icon>cancel</mat-icon>
+                  </button>
+               </mat-chip-row>
+            }
+         </mat-chip-grid>
+
+         <input
+            #hobbyInput
+            formControlName="favoriteHobby"
+            placeholder="Pasatiempo favorito"
+            [matChipInputFor]="chipGrid"
+            [matAutocomplete]="auto"
+            [matChipInputAddOnBlur]="true"
+            [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+            (matChipInputTokenEnd)="add($event)"
+         />
+         <mat-autocomplete
+            #auto="matAutocomplete"
+            (optionSelected)="selected($event)"
+         >
+            @for (hobby of filteredHobbies$ | async; track hobby) {
+               <mat-option [value]="hobby">{{ hobby }}</mat-option>
+            }
+         </mat-autocomplete>
+      </mat-form-field>
+
+      <mat-form-field color="primary">
+         <mat-label>Cumpleaños</mat-label>
+         <input
+            matInput
+            formControlName="birthday"
+            [matDatepicker]="picker"
+            placeholder="MM/DD/YYYY"
+         />
+         @if (profileForm.controls["birthday"].hasError("required")) {
+            <mat-error>Valor requerido</mat-error>
+         }
+         <mat-datepicker-toggle
+            matIconSuffix
+            [for]="picker"
+         ></mat-datepicker-toggle>
+         <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+
+      @if (is18OrOver()) {
+         <mat-form-field>
+            <mat-label> DUI </mat-label>
+
+            <input
+               matInput
+               formControlName="dui"
+               [specialCharacters]="['-']"
+               mask="00000000-0"
+               required="required"
+            />
+            @if (profileForm.controls["dui"].hasError("required")) {
+               <mat-error>Valor requerido</mat-error>
+            }
+         </mat-form-field>
+      }
+
+      @if (!is18OrOver()) {
+         <mat-form-field>
+            <mat-label>Documento</mat-label>
+            <input type="text" matInput formControlName="document" required />
+            @if (
+               profileForm.controls["document"] &&
+               profileForm.controls["document"].hasError("required")
+            ) {
+               <mat-error>Valor requerido</mat-error>
+            }
+         </mat-form-field>
+      }
+
+      <div class="buttons-container">
+         <button
+            type="submit"
+            class="button"
+            mat-flat-button
+            color="primary"
+            [disabled]="profileForm.invalid"
+         >
+            Continuar
+         </button>
+      </div>
+      <div #clickable></div>
+   </form>
+</div>

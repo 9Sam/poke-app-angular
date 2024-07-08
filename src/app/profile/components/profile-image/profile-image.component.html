@@ -1,0 +1,101 @@
+<div class="profile-image-container">
+   <div>
+      @if(showBadge()){
+         <div class="profile-badge">
+            <h2>Entrenador</h2>
+            <img src="assets/icons/badge.png" alt="Badge" />
+         </div>
+      }@else{
+         <h2>{{ getTitle() }}</h2>
+      }
+
+      @if (isPreview() || showBadge()) {
+         <div class="profile-image-circle">
+            <img
+               class="profile-image"
+               [src]="getImageSrc()"
+               alt="Profile Image"
+            />
+         </div>
+      }
+
+      @if (!isPreview() && !showBadge()) {
+         <div class="profile-image-circle">
+            @if (imageUrl) {
+               <img
+                  class="profile-image"
+                  [src]="imageUrl"
+                  alt="Profile Image"
+               />
+            } @else {
+               <div class="profile-image no-image">
+                  <img src="assets/icons/user_24px.png" alt="No Image" />
+               </div>
+            }
+         </div>
+      }
+   </div>
+
+   @if (isPreview() || showBadge()) {
+      <div class="profile-info-container">
+         <div class="profile-info-item">
+            <h4>Pasatiempo</h4>
+            <p>{{ user().favoriteHobby }}</p>
+         </div>
+         <div class="profile-info-item">
+            <h4>Edad</h4>
+            <p>{{ getUserAge() }}</p>
+         </div>
+         @if(user().dui){
+            <div class="profile-info-item">
+               <h4>DUI</h4>
+               <p>{{ user().dui }}</p>
+            </div>
+         }
+
+         @if(user().document){
+            <div class="profile-info-item">
+               <h4>Documento</h4>
+               <p>{{ user().document }}</p>
+            </div>
+         }
+      </div>
+   }
+
+   @if (!isPreview() && !showBadge()) {
+      <div class="profile-image-upload">
+         <input
+            id="fileInput"
+            type="file"
+            (change)="onFileSelected($event)"
+            accept="image/*"
+         />
+         <div class="custom-file-upload">
+            <div class="custom-file-upload-container">
+               <span>
+                  @if (!imageUrl) {
+                     Adjunta una foto
+                  } @else {
+                     {{ getImageName() }}
+                  }
+               </span>
+               @if (!imageUrl) {
+                  <label for="fileInput">
+                     <img
+                        src="assets/icons/cloud_upload_24px.png"
+                        alt="Upload"
+                     />
+                  </label>
+               } @else {
+                  <button class="delete-button" (click)="deleteImage()">
+                     <img
+                        src="assets/icons/restore_from_trash_24px.png"
+                        alt="Trash"
+                     />
+                  </button>
+               }
+            </div>
+         </div>
+      </div>
+   }
+</div>
