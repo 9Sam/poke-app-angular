@@ -12,7 +12,7 @@ input[type="file"] {
 
 .profile-image-container {
    width: auto;
-   height: 560px;
+   min-height: 560px;
    padding: var(--app-padding);
    border-radius: 40px;
    background-color: var(--app-accent-color);
@@ -122,15 +122,15 @@ input[type="file"] {
 }
 
 .profile-badge {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 20px;
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+   padding: 0 20px;
 
-    img {
-        width: 60px;
-        height: 55px;
-    }
+   img {
+      width: 60px;
+      height: 55px;
+   }
 }
 
 @media (min-width: 768px) {
