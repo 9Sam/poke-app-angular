@@ -7,7 +7,7 @@
    <div class="container">
       <div class="grid-container">
          <div class="grid-item">
-            <div>
+            <div class="profile-image-container">
                <app-profile-image
                   (imageSelectedEvent)="onImageSelected($event)"
                ></app-profile-image>
@@ -15,7 +15,10 @@
          </div>
          <div class="grid-item">
             <div>
-               <app-information-form (createUserEvent)="onCreateUserEvent($event)"></app-information-form>
+               <!-- <app-information-form (createUserEvent)="onCreateUserEvent($event)"></app-information-form> -->
+               <app-pick-pokemons
+                  (pokemonsSelectedEvent)="onPokemonsSelected($event)"
+               ></app-pick-pokemons>
             </div>
          </div>
       </div>

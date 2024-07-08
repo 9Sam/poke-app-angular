@@ -9,7 +9,7 @@
 :root {
    // *** APP PROPERTIES ***
    // General
-   --app-max-width: 1200px;
+   --app-max-width: 1280px;
    --app-padding: 20px;
    --app-margin: 20px;
    --app-separation-space: 20px;
@@ -24,6 +24,7 @@
    --app-warn-color: #ff0000;
    --app-lines-color: #9bb8d3;
    --app-dark-gray-color: #aaaaaa;
+   --app-light-gray-color: #f2f2f2;
 
    // *** MATERIAL PROPERTIES ***
    // form field
@@ -122,6 +123,21 @@ div.mat-mdc-autocomplete-panel {
    border-radius: 20px !important;
 }
 
+h2 {
+   font-size: var(--app-h2-font-size);
+   font-weight: var(--app-h2-font-weight);
+   margin: 10px 0;
+   color: var(--app-primary-color);
+}
+
+h5 {
+   font-size: 18px;
+   font-weight: var(--app-h5-font-weight);
+   margin: 0px 0;
+   color: #AAAAAA;
+}
+
+
 // Custom components
 .button {
    padding: 20px 45px !important;
@@ -131,6 +147,13 @@ div.mat-mdc-autocomplete-panel {
 
 .button:disabled {
    color: var(--app-dark-gray-color) !important;
+}
+
+.spinner {
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   height: 100%;
 }
 
 // Material custom components

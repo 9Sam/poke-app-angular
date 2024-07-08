@@ -4,6 +4,7 @@ import { ProfileImageComponent } from './components/profile-image/profile-image.
 import { InformationFormComponent } from './components/information-form/information-form.component';
 import { LoadingIndicatorComponent } from '../shared/components/loading-indicator/loading-indicator.component';
 import { UserI } from '@shared/services/user/interfaces/user.interface';
+import { PickPokemonsComponent } from './components/pick-pokemons/pick-pokemons.component';
 
 @Component({
    selector: 'app-profile',
@@ -15,6 +16,7 @@ import { UserI } from '@shared/services/user/interfaces/user.interface';
       ProfileImageComponent,
       InformationFormComponent,
       LoadingIndicatorComponent,
+      PickPokemonsComponent,
    ],
 })
 export class ProfileComponent {
@@ -32,5 +34,9 @@ export class ProfileComponent {
          console.log('inside profile', user);
       }
       this.isLoading.set(true);
+   }
+
+   onPokemonsSelected(pokemons: Set<number>) {
+      console.log('selectedpokemons', pokemons);
    }
 }
