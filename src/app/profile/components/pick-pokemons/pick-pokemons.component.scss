@@ -1,0 +1,92 @@
+.pick-pokemons-container {
+   padding: 0 30px;
+}
+
+.search-input {
+   position: relative;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   margin-top: calc(var(--app-separation-space) * 2);
+   margin-bottom: calc(var(--app-separation-space) * 2);
+   width: 100%;
+   height: 40px;
+   background-color: var(--app-light-gray-color);
+   border-radius: var(--app-border-radius-default);
+
+   input {
+      border: none;
+      width: 100%;
+      height: 100%;
+      padding: 0px 20px 0px 38px;
+      border-radius: var(--app-border-radius-default);
+      background-color: var(--app-light-gray-color);
+      color: rgba(0, 0, 0, 0.4);
+      font-weight: 700;
+   }
+
+   .icon {
+      position: absolute;
+      left: 0;
+      top: -2px;
+      cursor: pointer;
+      margin: auto 10px;
+      padding-top: 12px;
+      font-size: 20px;
+   }
+}
+
+.pokemon-search-form {
+   margin-bottom: calc(var(--app-separation-space) * 2);
+}
+
+.pokemon-list {
+   display: grid;
+   gap: 40px;
+   grid-template-columns: repeat(3, 1fr);
+   padding-top: 25px;
+   padding-bottom: 60px;
+   padding-left: 10px;
+   padding-right: 10px;
+}
+
+.pokemon-item {
+   width: 180px;
+   margin: 0 auto;
+}
+
+.buttons-container {
+   display: flex;
+   justify-content: center;
+   margin-top: calc(var(--app-separation-space) * 2);
+   padding: 0 20px;
+}
+
+.pokemon-list-viewport {
+   display: flex;
+   justify-content: center;
+   flex-wrap: wrap;
+   height: 400px;
+   width: 100%;
+   border: none;
+   border-radius: 20px;
+}
+
+.example-item {
+   height: 50px;
+}
+
+@media screen and (max-width: 768px) {
+
+   .pokemon-list {
+      grid-template-columns: 2fr;
+      justify-content: center;
+   }
+}
+
+@media screen and (max-width: 992px) {
+   .pokemon-list {
+      grid-template-columns: 2fr;
+      justify-content: center;
+   }
+}

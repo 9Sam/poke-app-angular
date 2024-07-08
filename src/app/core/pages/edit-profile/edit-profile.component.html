@@ -1,4 +1,4 @@
-@if (!loadingSub.getValue()) {
+@defer (on timer(2000)) {
    <app-header [title]="getTitle()" [subtitle]="getSubtitle()"></app-header>
 
    <div class="container">
@@ -12,20 +12,14 @@
          </div>
          <div class="grid-item">
             <div>
-                  <app-information-form
-                     (createUserEvent)="onCreateUserEvent($event)"
-                     [editing]="true"
-                  ></app-information-form>
-
-                  <app-pick-pokemons
-                     (pokemonsSelectedEvent)="onPokemonsSelected($event)"
-                  ></app-pick-pokemons>
-
-                  <!-- <app-review-data></app-review-data> -->
+               <app-information-form
+                  (createUserEvent)="onCreateUserEvent($event)"
+                  [editing]="true"
+               ></app-information-form>
             </div>
          </div>
       </div>
    </div>
-} @else {
+} @placeholder {
    <app-loading-indicator text="Cargando perfil..."></app-loading-indicator>
 }

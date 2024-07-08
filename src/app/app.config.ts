@@ -5,11 +5,13 @@ import { routes } from './app.routes';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 import { provideNativeDateAdapter } from '@angular/material/core';
+import { provideHttpClient } from '@angular/common/http';
 
 export const appConfig: ApplicationConfig = {
    providers: [
       provideRouter(routes),
       provideNativeDateAdapter(),
+      provideHttpClient(),
       provideAnimationsAsync(),
       {
          provide: MAT_FORM_FIELD_DEFAULT_OPTIONS,

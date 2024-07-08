@@ -2,6 +2,7 @@ import {
    Component,
    ElementRef,
    inject,
+   input,
    OnInit,
    output,
    signal,
@@ -33,6 +34,7 @@ import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask';
 import { UserI } from '@shared/services/user/interfaces/user.interface';
 import { UserService } from '@shared/services/user/user.service';
 import { HobbyService } from '../../../shared/services/hobby/hobby.service';
+import { LoadingService } from '../../../shared/services/loading/loading.service';
 
 @Component({
    selector: 'app-information-form',
@@ -59,8 +61,12 @@ export class InformationFormComponent implements OnInit {
    userService = inject(UserService);
    hobbyService = inject(HobbyService);
    announcer = inject(LiveAnnouncer);
+   loadingService = inject(LoadingService);
 
-   createUserEvent = output<UserI | undefined>({});
+   editing = input<boolean>(false);
+
+   loadingSub = this.loadingService.loadingSubject;
+   createUserEvent = output<UserI>({});
 
    user: Signal<UserI | undefined> = signal(undefined);
    hobbies: string[] = [];
@@ -125,22 +131,35 @@ export class InformationFormComponent implements OnInit {
          console.log('hobbies', hobbies);
          this.allHobbies = hobbies;
       });
+
+      if (this.editing()) {
+         this.userService.getCurrentUser().subscribe((user) => {
+            if (user) {
+               this.profileForm.patchValue({
+                  name: user.name,
+                  favoriteHobby: user.favoriteHobby,
+                  birthday: user.birthday,
+                  document: user.document,
+                  dui: user.dui,
+               });
+            }
+         });
+      }
    }
 
    submit(): void {
-      this.userService
-         .createUser({
-            name: this.profileForm.value.name,
-            favoriteHobby: this.hobbies[0] ?? '',
-            birthday: this.profileForm.value.birthday,
-            document: this.profileForm.value.document,
-            dui: this.profileForm.value.dui ?? '',
-         } as UserI)
-         .subscribe((user) => {
-            this.createUserEvent.emit(user);
+      this.loadingService.loadingSubject.next(true);
 
-            localStorage.setItem('user', JSON.stringify(user));
-         });
+      const user = {
+         name: this.profileForm.value.name,
+         favoriteHobby: this.hobbies[0] ?? '',
+         birthday: this.profileForm.value.birthday,
+         document: this.profileForm.value.document,
+         profilePicture: '',
+         dui: this.profileForm.value.dui ?? '',
+      } as UserI;
+
+      this.createUserEvent.emit(user);
    }
 
    add(event: MatChipInputEvent): void {
