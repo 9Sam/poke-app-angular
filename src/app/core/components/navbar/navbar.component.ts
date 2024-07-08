@@ -1,4 +1,10 @@
-import { Component, ElementRef, signal, ViewChild } from '@angular/core';
+import {
+   Component,
+   ElementRef,
+   inject,
+   signal,
+   ViewChild,
+} from '@angular/core';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
@@ -6,6 +12,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatMenuModule } from '@angular/material/menu';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { UserService } from '@shared/services/user/user.service';
+import { UserI } from '@shared/services/user/interfaces/user.interface';
 
 @Component({
    selector: 'app-navbar',
@@ -26,6 +34,10 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 export class NavbarComponent {
    @ViewChild('searchInputElem') searchInputElem!: ElementRef;
 
+   userService = inject(UserService);
+
+   user: UserI | undefined;
+
    searchInput = '';
    isSearching = signal(false);
 
@@ -35,6 +47,14 @@ export class NavbarComponent {
          value: 'José',
       },
    ];
+
+   constructor() {
+      this.userService.currentUser.subscribe((user) => {
+         if (user) {
+            this.user = user;
+         }
+      });
+   }
 
    handleSearchClick() {
       this.isSearching.set(true);

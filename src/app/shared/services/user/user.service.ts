@@ -9,9 +9,9 @@ import { HobbyService } from '../hobby/hobby.service';
 export class UserService {
    hobbyService = inject(HobbyService);
 
-   private usersSubject = new BehaviorSubject<UserI[]>([]);
+   currentUser = new BehaviorSubject<UserI | undefined>(undefined);
 
-   constructor() {}
+   private usersSubject = new BehaviorSubject<UserI[]>([]);
 
    getUsers(): Observable<UserI[]> {
       return this.usersSubject.asObservable();
@@ -24,6 +24,10 @@ export class UserService {
       return of(user);
    }
 
+   getCurrentUser(): Observable<UserI | undefined> {
+      return this.currentUser.asObservable();
+   }
+
    getUserFromLocalStorage(): Observable<UserI | string | null> {
       return of(localStorage.getItem('user'));
    }
@@ -34,6 +38,8 @@ export class UserService {
       this.usersSubject.next(users);
 
       this.hobbyService.createHobby(user.favoriteHobby).subscribe();
+
+      this.currentUser.next(user);
 
       return of(user);
    }
