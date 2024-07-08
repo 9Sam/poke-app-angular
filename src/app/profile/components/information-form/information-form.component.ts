@@ -108,9 +108,7 @@ export class InformationFormComponent implements OnInit {
          this.is18OrOver.set(is18OrOver);
 
          if (is18OrOver) {
-            this.profileForm.controls['document'].removeValidators([
-               Validators.required,
-            ]);
+            this.profileForm.controls['document'].clearValidators();
             this.profileForm.controls['dui'].setValidators([
                Validators.required,
             ]);
@@ -123,6 +121,9 @@ export class InformationFormComponent implements OnInit {
                Validators.required,
             ]);
          }
+
+         this.profileForm.controls['dui'].updateValueAndValidity();
+         this.profileForm.controls['document'].updateValueAndValidity();
       });
    }
 
