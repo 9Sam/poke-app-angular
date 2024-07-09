@@ -13,5 +13,7 @@
 
 
 <div class="preview-pokemon-list">
-   <app-preview-pokemon-card></app-preview-pokemon-card>
+   @for(pokemon of pokemons(); track pokemon.id) {
+      <app-preview-pokemon-card [pokemon]="pokemon" [maxStat]="maxStat"></app-preview-pokemon-card>
+   }
 </div>
