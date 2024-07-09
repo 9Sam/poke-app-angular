@@ -1,5 +1,5 @@
 .pick-pokemons-container {
-   padding: 0 30px;
+   padding: 0 20px;
 }
 
 .search-input {
@@ -77,6 +77,10 @@
 }
 
 @media screen and (max-width: 768px) {
+
+   .pokemon-list-viewport {
+      height: 600px;
+   }
 
    .pokemon-list {
       grid-template-columns: 2fr;

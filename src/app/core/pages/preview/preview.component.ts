@@ -32,7 +32,6 @@ export class PreviewComponent {
    pokemonService = inject(PokemonService);
 
    pokemons: PokemonI[] = [];
-   maxStat: number = 0;
 
    user = signal<UserI | undefined>({} as UserI);
 

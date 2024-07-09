@@ -11,7 +11,7 @@ import { PokemonI } from '@shared/interfaces/pokemon.interface';
 })
 export class PreviewPokemonCardComponent {
    pokemon = input<PokemonI>();
-   maxStat = input<number>(2000);
+   maxStat = input<number>(100);
 
    calculatePercentage(value: number): number {
       return (value / this.maxStat()) * 100;

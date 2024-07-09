@@ -1,4 +1,4 @@
-import { Component, inject, input } from '@angular/core';
+import { Component, inject, input, OnInit } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { PreviewPokemonCardComponent } from '../preview-pokemon-card/preview-pokemon-card.component';
@@ -14,7 +14,7 @@ import { PokemonI } from '@shared/interfaces/pokemon.interface';
    styleUrl: './preview-pokemons.component.scss',
    imports: [MatIconModule, MatButtonModule, PreviewPokemonCardComponent],
 })
-export class PreviewPokemonsComponent {
+export class PreviewPokemonsComponent implements OnInit {
    userService = inject(UserService);
    router = inject(Router);
 
@@ -24,7 +24,9 @@ export class PreviewPokemonsComponent {
 
    currentUser: UserI = {} as UserI;
 
-   constructor() {
+   constructor() {}
+
+   ngOnInit() {
       this.userService.getCurrentUser().subscribe((user) => {
          if (user) {
             this.currentUser = user;
@@ -33,10 +35,10 @@ export class PreviewPokemonsComponent {
          }
       });
 
-      this.maxStat = this.getMaxStat();
+      this.updateMaxStat();
    }
 
-   getMaxStat(): number {
+   updateMaxStat(): void {
       const statsProperties = [
          'health',
          'attack',
@@ -52,6 +54,6 @@ export class PreviewPokemonsComponent {
          ),
       );
 
-      return Math.max(...(stats.flat() as number[]));
+      this.maxStat = Math.max(...(stats.flat() as number[]));
    }
 }
