@@ -1,4 +1,4 @@
-@defer (on timer(200)) {
+@defer (on timer(2000)) {
    <div class="header-container">
       <app-header [title]="getTitle()"></app-header>
       <button mat-stroked-button color="primary">
@@ -22,7 +22,7 @@
          </div>
          <div class="grid-item">
             <div>
-               <app-preview-pokemons></app-preview-pokemons>
+               <app-preview-pokemons [pokemons]="pokemons"></app-preview-pokemons>
             </div>
          </div>
       </div>
