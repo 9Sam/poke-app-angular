@@ -111,6 +111,7 @@ export class InformationFormComponent implements OnInit {
             this.profileForm.controls['document'].clearValidators();
             this.profileForm.controls['dui'].setValidators([
                Validators.required,
+               Validators.minLength(9),
             ]);
          } else {
             this.profileForm.controls['document'].setValidators([
