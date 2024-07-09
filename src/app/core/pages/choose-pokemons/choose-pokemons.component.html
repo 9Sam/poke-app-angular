@@ -1,23 +1,18 @@
-<!-- @if (!loadingSub.getValue()) { -->
-   <app-header [title]="getTitle()" [subtitle]="getSubtitle()"></app-header>
+<app-header [title]="getTitle()" [subtitle]="getSubtitle()"></app-header>
 
-   <div class="container">
-      <div class="grid-container">
-         <div class="grid-item">
-            <div class="profile-image-container">
-               <app-profile-image [isPreview]="true"
-               ></app-profile-image>
-            </div>
+<div class="container">
+   <div class="grid-container">
+      <div class="grid-item">
+         <div class="profile-image-container">
+            <app-profile-image [isPreview]="true"></app-profile-image>
          </div>
-         <div class="grid-item">
-            <div>
-               <app-pick-pokemons
-                  (pokemonsSelectedEvent)="onPokemonsSelected($event)"
-               ></app-pick-pokemons>
-            </div>
+      </div>
+      <div class="grid-item">
+         <div>
+            <app-pick-pokemons
+               (pokemonsSelectedEvent)="onPokemonsSelected($event)"
+            ></app-pick-pokemons>
          </div>
       </div>
    </div>
-<!-- } @else {
-   <app-loading-indicator text="Cargando perfil..."></app-loading-indicator>
-} -->
+</div>

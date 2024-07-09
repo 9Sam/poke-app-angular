@@ -75,6 +75,8 @@
    --mat-datepicker-calendar-container-background-color: white;
    --mat-datepicker-calendar-container-text-color: red;
    --mdc-outlined-button-outline-color: var(--app-primary-color);
+
+   // linear progress
    --mdc-linear-progress-track-color: var(--app-light-gray-color);
 }
 
@@ -136,9 +138,8 @@ h5 {
    font-size: 18px;
    font-weight: var(--app-h5-font-weight);
    margin: 0px 0;
-   color: #AAAAAA;
+   color: #aaaaaa;
 }
-
 
 // Custom components
 .button {
@@ -276,3 +277,37 @@ mat-calendar-body-cell mat-calendar-body-active {
 .mat-calendar-body-active {
    color: white !important;
 }
+
+.mat-mdc-progress-bar {
+   height: 10px;
+   border-radius: 20px;
+   border: 3px solid white;
+   box-shadow: 0px 5px 10px #0000001e;
+}
+
+.mdc-linear-progress__buffer {
+   background-color: red !important;
+   fill: red !important;
+   height: 10px !important;
+}
+
+.mdc-linear-progress__bar-inner {
+   fill: yellow !important;
+   border-radius: 20px !important;
+   background-color: yellow !important;
+}
+
+.mdc-linear-progress__bar{
+   fill: yellow !important;
+   background-color: #46a35e !important;
+}
+
+.mdc-linear-progress__secondary-bar{
+   fill: yellow !important;
+   background-color: #46a35e !important;
+}
+
+.mdc-linear-progress__bar .mdc-linear-progress__primary-bar {
+   fill: yellow !important;
+   background-color: orangered !important;
+} 

@@ -1,0 +1,14 @@
+.progress-bar {
+   width: 200px;
+   height: 10px;
+   border-radius: 10px;
+   background-color: transparent;
+   border: 3px solid white;
+   box-shadow: 5px 3px 8px rgba(0, 0, 0, 0.11),
+}
+
+.progress-bar-fill {
+   border-radius: 10px;
+   background-color: rgb(88, 206, 88);
+   height: 100%; /* Important: Set the height to 100% */
+}

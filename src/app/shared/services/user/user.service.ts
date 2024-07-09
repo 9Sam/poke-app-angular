@@ -56,4 +56,17 @@ export class UserService {
          return of(undefined);
       }
    }
+
+   updateCurrentUser(user: UserI): Observable<UserI | undefined> {
+      const users = this.usersSubject.getValue();
+      const userIndex = users.findIndex((u) => u.id === user.id);
+
+      if (userIndex !== -1) {
+         users[userIndex] = user;
+         this.usersSubject.next(users);
+         return of(user);
+      } else {
+         return of(undefined);
+      }
+   }
 }

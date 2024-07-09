@@ -3,6 +3,7 @@ export interface UserI {
    name: string;
    profilePicture?: string;
    favoriteHobby: string;
+   pokemons: number[];
    birthday: Date;
    document?: string;
    dui?: string;

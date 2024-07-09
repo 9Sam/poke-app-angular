@@ -1,28 +1,56 @@
 <div class="preview-pokemon-card-container">
    <div class="pokemon-general-info">
-      <img src="assets/images/bulbasour.png" alt="Pokemon Image" />
-      <h2>Bulbasour</h2>
+      <img [src]="pokemon()?.sprite" alt="Pokemon Image" />
+      <h2>{{ pokemon()?.name }}</h2>
    </div>
    <div class="pokemon-stats">
       <div class="pokemon-stat">
          <span>HP</span>
-         <mat-progress-bar mode="determinate" value="40"></mat-progress-bar>
+         <div class="progress-bar">
+            <app-progress-bar
+               [progress]="pokemon()?.health || 0"
+            ></app-progress-bar>
+         </div>
       </div>
       <div class="pokemon-stat">
          <span>Ataque</span>
-         <mat-progress-bar mode="determinate" value="40"></mat-progress-bar>
+         <div class="progress-bar">
+            <app-progress-bar
+               [progress]="calculatePercentage(pokemon()?.attack || 0)"
+            ></app-progress-bar>
+         </div>
       </div>
       <div class="pokemon-stat">
          <span>Defensa</span>
-         <mat-progress-bar mode="determinate" value="40"></mat-progress-bar>
+         <div class="progress-bar">
+            <app-progress-bar
+               [progress]="calculatePercentage(pokemon()?.defense || 0)"
+            ></app-progress-bar>
+         </div>
       </div>
       <div class="pokemon-stat">
-         <span>Bulbasour</span>
-         <mat-progress-bar mode="determinate" value="40"></mat-progress-bar>
+         <span>Ataque Especial</span>
+         <div class="progress-bar">
+            <app-progress-bar
+               [progress]="calculatePercentage(pokemon()?.specialAttack || 0)"
+            ></app-progress-bar>
+         </div>
       </div>
       <div class="pokemon-stat">
-         <span>Charmander</span>
-         <mat-progress-bar mode="determinate" value="40"></mat-progress-bar>
+         <span>Defensa Especial</span>
+         <div class="progress-bar">
+            <app-progress-bar
+               [progress]="calculatePercentage(pokemon()?.specialDefense || 0)"
+            ></app-progress-bar>
+         </div>
+      </div>
+      <div class="pokemon-stat">
+         <span>Velocidad</span>
+         <div class="progress-bar">
+            <app-progress-bar
+               [progress]="calculatePercentage(pokemon()?.speed || 0)"
+            ></app-progress-bar>
+         </div>
       </div>
    </div>
 </div>
