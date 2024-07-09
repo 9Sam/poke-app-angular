@@ -1,10 +1,12 @@
 import { Component, inject } from '@angular/core';
-import { InformationFormComponent } from '../../../profile/components/information-form/information-form.component';
-import { ProfileImageComponent } from '../../../profile/components/profile-image/profile-image.component';
+import { InformationFormComponent } from '@profile/components/information-form/information-form.component';
+import { ProfileImageComponent } from '@profile/components/profile-image/profile-image.component';
 import { HeaderComponent } from '@shared/components/header/header.component';
-import { PickPokemonsComponent } from '../../../profile/components/pick-pokemons/pick-pokemons.component';
+import { PickPokemonsComponent } from '@profile/components/pick-pokemons/pick-pokemons.component';
 import { LoadingIndicatorComponent } from '@shared/components/loading-indicator/loading-indicator.component';
 import { Router } from '@angular/router';
+import { UserService } from '@shared/services/user/user.service';
+import { UserI } from '@shared/services/user/interfaces/user.interface';
 
 @Component({
    selector: 'app-choose-pokemons',
@@ -21,9 +23,28 @@ import { Router } from '@angular/router';
 })
 export class ChoosePokemonsComponent {
    router = inject(Router);
+   userService = inject(UserService);
+
+   currentUser: UserI = {} as UserI;
+
+   constructor() {
+      this.userService.getCurrentUser().subscribe((user) => {
+         if (user) {
+            this.currentUser = user;
+         } else {
+            this.router.navigate(['/']);
+         }
+      });
+   }
 
    onPokemonsSelected(pokemons: Set<number>) {
-      this.router.navigate(['/preview'], { state: { pokemons } });
+      if (this.currentUser) {
+         this.currentUser.pokemons = [...pokemons];
+
+         this.userService.updateCurrentUser(this.currentUser);
+      }
+
+      this.router.navigate(['/preview']);
    }
 
    getTitle() {
