@@ -25,7 +25,7 @@ export class ChoosePokemonsComponent {
    router = inject(Router);
    userService = inject(UserService);
 
-   currentUser: UserI = {} as UserI;
+   currentUser: SystemUserI = {} as SystemUserI;
 
    constructor() {
       this.userService.getCurrentUser().subscribe((user) => {
@@ -41,7 +41,13 @@ export class ChoosePokemonsComponent {
       if (this.currentUser) {
          this.currentUser.pokemons = [...pokemons];
 
-         this.userService.updateCurrentUser(this.currentUser);
+         this.userService.createUser(this.currentUser).subscribe(() => {
+            const user = { ...this.currentUser };
+
+            user.isLoggedIn = true;
+
+            this.userService.updateCurrentUser(user);
+         });
       }
 
       this.router.navigate(['/preview']);

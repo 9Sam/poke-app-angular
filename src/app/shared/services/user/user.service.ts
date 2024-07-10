@@ -1,6 +1,6 @@
 import { inject, Injectable } from '@angular/core';
 import { Observable, BehaviorSubject, of } from 'rxjs';
-import { UserI } from './interfaces/user.interface';
+import { SystemUserI, UserI } from './interfaces/user.interface';
 import { HobbyService } from '../hobby/hobby.service';
 
 @Injectable({
@@ -9,7 +9,7 @@ import { HobbyService } from '../hobby/hobby.service';
 export class UserService {
    hobbyService = inject(HobbyService);
 
-   currentUser = new BehaviorSubject<UserI | undefined>(undefined);
+   currentUser = new BehaviorSubject<SystemUserI | undefined>(undefined);
 
    private usersSubject = new BehaviorSubject<UserI[]>([]);
 
@@ -24,12 +24,8 @@ export class UserService {
       return of(user);
    }
 
-   getCurrentUser(): Observable<UserI | undefined> {
+   getCurrentUser(): Observable<SystemUserI | undefined> {
       return this.currentUser.asObservable();
-   }
-
-   getUserFromLocalStorage(): Observable<UserI | string | null> {
-      return of(localStorage.getItem('user'));
    }
 
    createUser(user: UserI): Observable<UserI> {
@@ -39,6 +35,7 @@ export class UserService {
 
       this.hobbyService.createHobby(user.favoriteHobby).subscribe();
 
+   createCurrentUser(user: SystemUserI): Observable<UserI | undefined> {
       this.currentUser.next(user);
 
       return of(user);
@@ -57,13 +54,8 @@ export class UserService {
       }
    }
 
-   updateCurrentUser(user: UserI): Observable<UserI | undefined> {
-      const users = this.usersSubject.getValue();
-      const userIndex = users.findIndex((u) => u.id === user.id);
-
-      if (userIndex !== -1) {
-         users[userIndex] = user;
-         this.usersSubject.next(users);
+   updateCurrentUser(user: SystemUserI): Observable<SystemUserI | undefined> {
+      this.currentUser.next(user);
          return of(user);
       } else {
          return of(undefined);

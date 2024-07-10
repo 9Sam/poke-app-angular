@@ -8,3 +8,7 @@ export interface UserI {
    document?: string;
    dui?: string;
 }
+
+export interface SystemUserI extends UserI {
+   isLoggedIn: boolean;
+}
