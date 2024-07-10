@@ -5,7 +5,7 @@
       "ng": "ng",
       "start": "ng serve",
       "build": "ng build",
-      "docker:build": "docker build -t poke-app-angular .",
+      "docker:build": "docker-compose up --build -d",
       "docker:run": "docker-compose up -d",
       "docker:stop": "docker-compose down",
       "watch": "ng build --watch --configuration development",
