@@ -18,6 +18,26 @@
    padding-top: var(--app-padding);
 }
 
+swiper-container {
+   width: 100%;
+   height: 100%;
+   margin-top: calc(var(--app-padding) * 2);
+}
+
+slider-item {
+   width: 100%;
+   height: 100%;
+}
+
+.swiper-button-next svg {
+   width: 10px;
+}
+
+swiper-container::part(button-next), swiper-container::part(button-prev) {
+   width: 20px;
+   color: var(--app-primary-color);
+}
+
 ::ng-deep .mat-mdc-outlined-button:not(:disabled) {
    --mdc-outlined-button-outline-color: var(--app-primary-color) !important;
    color: var(--app-primary-color) !important;
@@ -28,5 +48,9 @@
    .preview-pokemon-header {
       flex-direction: row;
       gap: 10px;
+   }
+
+   .swiper-container {
+      max-width: 800px;
    }
 }

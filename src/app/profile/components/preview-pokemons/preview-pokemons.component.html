@@ -11,9 +11,21 @@
    </button>
 </div>
 
-
 <div class="preview-pokemon-list">
-   @for(pokemon of pokemons(); track pokemon.id) {
-      <app-preview-pokemon-card [pokemon]="pokemon" [maxStat]="maxStat"></app-preview-pokemon-card>
-   }
+   <swiper-container
+      slides-per-view="1"
+      speed="500"
+      loop="true"
+      css-mode="true"
+      navigation="true"
+   >
+      @for (pokemon of pokemons(); track pokemon.id) {
+         <swiper-slide>
+            <app-preview-pokemon-card
+               [pokemon]="pokemon"
+               [maxStat]="maxStat"
+            ></app-preview-pokemon-card>
+         </swiper-slide>
+      }
+   </swiper-container>
 </div>
