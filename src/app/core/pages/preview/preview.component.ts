@@ -39,9 +39,13 @@ export class PreviewComponent {
 
    constructor() {
       this.userService.getUser().subscribe((user) => {
-         this.user.set(user ?? ({} as UserI));
+         if (user) {
+            this.user.set(user ?? ({} as UserI));
 
-         this.getThreePokemons(user?.pokemons ?? []);
+            this.getThreePokemons(user?.pokemons ?? []);
+         } else {
+            this.router.navigate(['/']);
+         }
       });
    }
 

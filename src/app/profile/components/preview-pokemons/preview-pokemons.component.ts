@@ -33,6 +33,10 @@ export class PreviewPokemonsComponent implements OnInit {
       this.updateMaxStat();
    }
 
+   onEditPokemons() {
+      this.router.navigate(['/pokemons/edit']);
+   }
+
    updateMaxStat(): void {
       const statsProperties = [
          'health',
