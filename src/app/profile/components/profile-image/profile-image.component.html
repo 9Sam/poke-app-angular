@@ -1,39 +1,23 @@
 <div class="profile-image-container">
    <div>
-      @if(showBadge()){
+      @if (showBadge()) {
          <div class="profile-badge">
             <h2>Entrenador</h2>
             <img src="assets/icons/badge.png" alt="Badge" />
          </div>
-      }@else{
+      } @else {
          <h2>{{ getTitle() }}</h2>
       }
 
-      @if (isPreview() || showBadge()) {
-         <div class="profile-image-circle">
-            <img
-               class="profile-image"
-               [src]="getImageSrc()"
-               alt="Profile Image"
-            />
-         </div>
-      }
-
-      @if (!isPreview() && !showBadge()) {
-         <div class="profile-image-circle">
-            @if (imageUrl) {
-               <img
-                  class="profile-image"
-                  [src]="imageUrl"
-                  alt="Profile Image"
-               />
-            } @else {
-               <div class="profile-image no-image">
-                  <img src="assets/icons/user_24px.png" alt="No Image" />
-               </div>
-            }
-         </div>
-      }
+      <div class="profile-image-circle">
+         @if (imageUrl) {
+            <img class="profile-image" [src]="imageUrl" alt="Profile Image" />
+         } @else {
+            <div class="profile-image no-image">
+               <img src="assets/icons/user_24px.png" alt="No Image" />
+            </div>
+         }
+      </div>
    </div>
 
    @if (isPreview() || showBadge()) {
@@ -46,14 +30,14 @@
             <h4>Edad</h4>
             <p>{{ getUserAge() }}</p>
          </div>
-         @if(user().dui){
+         @if (user().dui) {
             <div class="profile-info-item">
                <h4>DUI</h4>
                <p>{{ user().dui }}</p>
             </div>
          }
 
-         @if(user().document){
+         @if (user().document) {
             <div class="profile-info-item">
                <h4>Documento</h4>
                <p>{{ user().document }}</p>
