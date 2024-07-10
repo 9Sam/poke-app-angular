@@ -9,10 +9,10 @@ import { UserService } from '@shared/services/user/user.service';
 import { UserI } from '@shared/services/user/interfaces/user.interface';
 
 @Component({
-   selector: 'app-choose-pokemons',
+   selector: 'app-edit-pokemons',
    standalone: true,
-   templateUrl: './choose-pokemons.component.html',
-   styleUrl: './choose-pokemons.component.scss',
+   templateUrl: './edit-pokemons.component.html',
+   styleUrl: './edit-pokemons.component.scss',
    imports: [
       HeaderComponent,
       ProfileImageComponent,
@@ -21,14 +21,14 @@ import { UserI } from '@shared/services/user/interfaces/user.interface';
       LoadingIndicatorComponent,
    ],
 })
-export class ChoosePokemonsComponent {
+export class EditPokemonsComponent {
    router = inject(Router);
    userService = inject(UserService);
 
    currentUser: UserI = {} as UserI;
 
    constructor() {
-      this.userService.getCurrentUser().subscribe((user) => {
+      this.userService.getUser().subscribe((user) => {
          if (user) {
             this.currentUser = user;
          } else {
@@ -40,10 +40,15 @@ export class ChoosePokemonsComponent {
    onPokemonsSelected(pokemons: Set<number>) {
       if (this.currentUser) {
          this.currentUser.pokemons = [...pokemons];
-         this.currentUser.isLoggedIn = true;
 
-         this.userService.createUser(this.currentUser).subscribe(() => {
-            this.userService.updateCurrentUser(this.currentUser);
+         this.userService.updateUser(this.currentUser).subscribe(() => {
+            const tempUser: UserI = {
+               ...this.currentUser,
+            } as UserI;
+
+            tempUser.isLoggedIn = true;
+
+            this.userService.updateCurrentUser(tempUser);
          });
       }
 

@@ -1,4 +1,4 @@
-import { Component, inject, input, output, signal } from '@angular/core';
+import { Component, inject, input, OnInit, output } from '@angular/core';
 import { UserI } from '@shared/services/user/interfaces/user.interface';
 import { UserService } from '@shared/services/user/user.service';
 import { differenceInYears, parseISO } from 'date-fns';
@@ -10,25 +10,20 @@ import { differenceInYears, parseISO } from 'date-fns';
    templateUrl: './profile-image.component.html',
    styleUrl: './profile-image.component.scss',
 })
-export class ProfileImageComponent {
+export class ProfileImageComponent implements OnInit {
    userService = inject(UserService);
 
    selectedFile: File | null = null;
    imageUrl: string | ArrayBuffer | null = null;
    imageSelectedEvent = output<string | ArrayBuffer | null>();
 
-   user = signal<UserI>({} as UserI);
+   user = input<UserI>({} as UserI);
 
    isPreview = input<boolean>(false);
+   isEditing = input<boolean>(false);
    showBadge = input<boolean>(false);
 
-   constructor() {
-      this.userService.getCurrentUser().subscribe((user) => {
-         if (user) {
-            this.user.set(user);
-         }
-      });
-   }
+   constructor() {}
 
    onFileSelected($event: any) {
       const fileInput = $event.target as HTMLInputElement;
@@ -43,7 +38,14 @@ export class ProfileImageComponent {
 
             this.imageSelectedEvent.emit(this.imageUrl);
          };
+
          reader.readAsDataURL(this.selectedFile);
+      }
+   }
+
+   ngOnInit(): void {
+      if (this.isEditing() || this.isPreview()) {
+         this.imageUrl = this.user()?.profilePicture || null;
       }
    }
 
@@ -53,18 +55,16 @@ export class ProfileImageComponent {
    }
 
    getTitle() {
-      return this.user().name ? this.user().name : 'Imagen de perfil';
+      return this.user()?.name ? this.user()?.name : 'Imagen de perfil';
    }
 
    getImageSrc() {
-      return this.user().profilePicture
-         ? this.user().profilePicture
-         : 'assets/icons/user_24px.png';
+      return this.user()?.profilePicture ? this.user()?.profilePicture : null;
    }
 
    getUserAge() {
-      if (this.user().birthday) {
-         const date = new Date(this.user().birthday);
+      if (this.user()?.birthday) {
+         const date = new Date(this.user()?.birthday ?? '');
          const parsedDate = parseISO(date.toISOString());
 
          return differenceInYears(new Date(), parsedDate) + ' años';
@@ -74,6 +74,11 @@ export class ProfileImageComponent {
    }
 
    getImageName(): string | null {
+      if (this.isEditing()) {
+         return this.selectedFile && this.selectedFile.name
+            ? this.selectedFile.name
+            : 'Cambiar imagen';
+      }
       return this.selectedFile ? this.selectedFile.name : null;
    }
 }

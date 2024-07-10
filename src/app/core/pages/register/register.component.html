@@ -1,4 +1,4 @@
-@defer (on timer(2000)) {
+@defer (on timer(1000)) {
    <app-header [title]="getTitle()" [subtitle]="getSubtitle()"></app-header>
 
    <div class="container">
@@ -7,6 +7,8 @@
             <div class="profile-image-container">
                <app-profile-image
                   (imageSelectedEvent)="onImageSelected($event)"
+                  [isEditing]="false"
+                  [isPreview]="false"
                ></app-profile-image>
             </div>
          </div>
@@ -14,7 +16,7 @@
             <div>
                <app-information-form
                   (createUserEvent)="onCreateUserEvent($event)"
-                  [editing]="true"
+                  [isEditing]="false"
                ></app-information-form>
             </div>
          </div>

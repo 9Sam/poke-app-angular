@@ -1,11 +1,19 @@
-import { Component, inject, input, OnInit } from '@angular/core';
+import {
+   ChangeDetectionStrategy,
+   Component,
+   CUSTOM_ELEMENTS_SCHEMA,
+   inject,
+   input,
+   OnInit,
+} from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { PreviewPokemonCardComponent } from '../preview-pokemon-card/preview-pokemon-card.component';
 import { UserService } from '@shared/services/user/user.service';
-import { UserI } from '@shared/services/user/interfaces/user.interface';
 import { Router } from '@angular/router';
 import { PokemonI } from '@shared/interfaces/pokemon.interface';
+import { register } from 'swiper/element/bundle';
+register();
 
 @Component({
    selector: 'app-preview-pokemons',
@@ -13,6 +21,8 @@ import { PokemonI } from '@shared/interfaces/pokemon.interface';
    templateUrl: './preview-pokemons.component.html',
    styleUrl: './preview-pokemons.component.scss',
    imports: [MatIconModule, MatButtonModule, PreviewPokemonCardComponent],
+   schemas: [CUSTOM_ELEMENTS_SCHEMA],
+   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PreviewPokemonsComponent implements OnInit {
    userService = inject(UserService);
@@ -22,20 +32,20 @@ export class PreviewPokemonsComponent implements OnInit {
 
    maxStat: number = 0;
 
-   currentUser: UserI = {} as UserI;
-
    constructor() {}
 
    ngOnInit() {
-      this.userService.getCurrentUser().subscribe((user) => {
-         if (user) {
-            this.currentUser = user;
-         } else {
+      this.userService.getUser().subscribe((user) => {
+         if (!user) {
             this.router.navigate(['/']);
          }
       });
 
       this.updateMaxStat();
+   }
+
+   onEditPokemons() {
+      this.router.navigate(['/pokemons/edit']);
    }
 
    updateMaxStat(): void {

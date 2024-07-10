@@ -7,4 +7,5 @@ export interface UserI {
    birthday: Date;
    document?: string;
    dui?: string;
+   isLoggedIn: boolean;
 }

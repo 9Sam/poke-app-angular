@@ -2,6 +2,7 @@ import {
    Component,
    ElementRef,
    inject,
+   OnInit,
    signal,
    ViewChild,
 } from '@angular/core';
@@ -31,7 +32,7 @@ import { UserI } from '@shared/services/user/interfaces/user.interface';
    templateUrl: './navbar.component.html',
    styleUrl: './navbar.component.scss',
 })
-export class NavbarComponent {
+export class NavbarComponent implements OnInit {
    @ViewChild('searchInputElem') searchInputElem!: ElementRef;
 
    userService = inject(UserService);
@@ -41,17 +42,12 @@ export class NavbarComponent {
    searchInput = '';
    isSearching = signal(false);
 
-   menuItems = [
-      {
-         label: 'user',
-         value: 'José',
-      },
-   ];
-
-   constructor() {
-      this.userService.currentUser.subscribe((user) => {
-         if (user) {
+   ngOnInit(): void {
+      this.userService.getCurrentUser().subscribe((user) => {
+         if (user && user.isLoggedIn) {
             this.user = user;
+         } else {
+            this.user = undefined;
          }
       });
    }
