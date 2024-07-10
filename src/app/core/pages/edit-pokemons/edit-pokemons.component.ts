@@ -6,10 +6,7 @@ import { PickPokemonsComponent } from '@profile/components/pick-pokemons/pick-po
 import { LoadingIndicatorComponent } from '@shared/components/loading-indicator/loading-indicator.component';
 import { Router } from '@angular/router';
 import { UserService } from '@shared/services/user/user.service';
-import {
-   SystemUserI,
-   UserI,
-} from '@shared/services/user/interfaces/user.interface';
+import { UserI } from '@shared/services/user/interfaces/user.interface';
 
 @Component({
    selector: 'app-edit-pokemons',
@@ -45,9 +42,9 @@ export class EditPokemonsComponent {
          this.currentUser.pokemons = [...pokemons];
 
          this.userService.updateUser(this.currentUser).subscribe(() => {
-            const tempUser: SystemUserI = {
+            const tempUser: UserI = {
                ...this.currentUser,
-            } as SystemUserI;
+            } as UserI;
 
             tempUser.isLoggedIn = true;
 

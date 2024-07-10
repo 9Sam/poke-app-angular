@@ -6,7 +6,7 @@ import { PickPokemonsComponent } from '@profile/components/pick-pokemons/pick-po
 import { LoadingIndicatorComponent } from '@shared/components/loading-indicator/loading-indicator.component';
 import { Router } from '@angular/router';
 import { UserService } from '@shared/services/user/user.service';
-import { SystemUserI } from '@shared/services/user/interfaces/user.interface';
+import { UserI } from '@shared/services/user/interfaces/user.interface';
 
 @Component({
    selector: 'app-choose-pokemons',
@@ -25,7 +25,7 @@ export class ChoosePokemonsComponent {
    router = inject(Router);
    userService = inject(UserService);
 
-   currentUser: SystemUserI = {} as SystemUserI;
+   currentUser: UserI = {} as UserI;
 
    constructor() {
       this.userService.getCurrentUser().subscribe((user) => {
@@ -40,13 +40,10 @@ export class ChoosePokemonsComponent {
    onPokemonsSelected(pokemons: Set<number>) {
       if (this.currentUser) {
          this.currentUser.pokemons = [...pokemons];
+         this.currentUser.isLoggedIn = true;
 
          this.userService.createUser(this.currentUser).subscribe(() => {
-            const user = { ...this.currentUser };
-
-            user.isLoggedIn = true;
-
-            this.userService.updateCurrentUser(user);
+            this.userService.updateCurrentUser(this.currentUser);
          });
       }
 
