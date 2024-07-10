@@ -23,6 +23,13 @@ export const routes: Routes = [
          ),
    },
    {
+      path: 'pokemons/edit',
+      loadComponent: () =>
+         import('./core/pages/edit-pokemons/edit-pokemons.component').then(
+            (m) => m.EditPokemonsComponent,
+         ),
+   },
+   {
       path: 'preview',
       loadComponent: () =>
          import('./core/pages/preview/preview.component').then(

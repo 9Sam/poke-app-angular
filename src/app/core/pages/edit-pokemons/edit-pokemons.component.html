@@ -1,0 +1,19 @@
+<app-header [title]="getTitle()" [subtitle]="getSubtitle()"></app-header>
+
+<div class="container">
+   <div class="grid-container">
+      <div class="grid-item">
+         <div class="profile-image-container">
+            <app-profile-image [isPreview]="true" [user]="currentUser"></app-profile-image>
+         </div>
+      </div>
+      <div class="grid-item">
+         <div>
+            <app-pick-pokemons
+               (pokemonsSelectedEvent)="onPokemonsSelected($event)"
+               [defaultSelectedPokemons]="[2,4,5]"
+            ></app-pick-pokemons>
+         </div>
+      </div>
+   </div>
+</div>

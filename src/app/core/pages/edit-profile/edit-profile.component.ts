@@ -31,6 +31,8 @@ export class EditProfileComponent implements OnInit {
       this.userService.getUser().subscribe((user) => {
          if (user) {
             this.user.set(user);
+         } else {
+            this.router.navigate(['/']);
          }
       });
    }

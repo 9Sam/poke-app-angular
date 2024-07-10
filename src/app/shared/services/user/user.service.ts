@@ -28,6 +28,8 @@ export class UserService {
    createUser(user: UserI): Observable<UserI> {
       localStorage.setItem('user', JSON.stringify(user));
 
+      this.currentUser.next(user as SystemUserI);
+
       return of(user);
    }
 
@@ -39,6 +41,7 @@ export class UserService {
 
    updateUser(user: UserI): Observable<UserI | undefined> {
       localStorage.setItem('user', JSON.stringify(user));
+
       return of(user);
    }
 
