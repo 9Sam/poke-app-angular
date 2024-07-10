@@ -8,7 +8,7 @@
          <span>HP</span>
          <div class="progress-bar">
             <app-progress-bar
-               [progress]="pokemon()?.health || 0"
+               [progress]="calculatePercentage('health',pokemon()?.health || 0)"
             ></app-progress-bar>
          </div>
       </div>
@@ -16,7 +16,7 @@
          <span>Ataque</span>
          <div class="progress-bar">
             <app-progress-bar
-               [progress]="calculatePercentage(pokemon()?.attack || 0)"
+               [progress]="calculatePercentage('attack', pokemon()?.attack || 0)"
             ></app-progress-bar>
          </div>
       </div>
@@ -24,7 +24,7 @@
          <span>Defensa</span>
          <div class="progress-bar">
             <app-progress-bar
-               [progress]="calculatePercentage(pokemon()?.defense || 0)"
+               [progress]="calculatePercentage('defense', pokemon()?.defense || 0)"
             ></app-progress-bar>
          </div>
       </div>
@@ -32,7 +32,7 @@
          <span>Ataque Especial</span>
          <div class="progress-bar">
             <app-progress-bar
-               [progress]="calculatePercentage(pokemon()?.specialAttack || 0)"
+               [progress]="calculatePercentage('specialAttack', pokemon()?.specialAttack || 0)"
             ></app-progress-bar>
          </div>
       </div>
@@ -40,7 +40,7 @@
          <span>Defensa Especial</span>
          <div class="progress-bar">
             <app-progress-bar
-               [progress]="calculatePercentage(pokemon()?.specialDefense || 0)"
+               [progress]="calculatePercentage('specialDefense',pokemon()?.specialDefense || 0)"
             ></app-progress-bar>
          </div>
       </div>
@@ -48,7 +48,7 @@
          <span>Velocidad</span>
          <div class="progress-bar">
             <app-progress-bar
-               [progress]="calculatePercentage(pokemon()?.speed || 0)"
+               [progress]="calculatePercentage('speed', pokemon()?.speed || 0)"
             ></app-progress-bar>
          </div>
       </div>
