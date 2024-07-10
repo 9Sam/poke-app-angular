@@ -1,7 +1,7 @@
 <div style="display:flex;justify-content:center;">
    <img src="https://cdn-icons-png.flaticon.com/256/1169/1169608.png" width="150" style="">
 </div>
-<h1 align="center" style="color:#FF516C;">PokeAppAngular</h1>
+<h1 align="start" style="color:#FF516C;">PokeAppAngular</h1>
 
 The porpose of this project is to serve as small showcase of my Angular skills.
 
