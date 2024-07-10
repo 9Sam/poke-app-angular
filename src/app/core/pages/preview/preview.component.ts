@@ -11,6 +11,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { PokemonService } from '@shared/services/pokemon/pokemon.service';
 import { forkJoin } from 'rxjs';
 import { PokemonI } from '@shared/interfaces/pokemon.interface';
+import { Router } from '@angular/router';
 
 @Component({
    selector: 'app-preview',
@@ -30,17 +31,26 @@ import { PokemonI } from '@shared/interfaces/pokemon.interface';
 export class PreviewComponent {
    userService = inject(UserService);
    pokemonService = inject(PokemonService);
+   router = inject(Router);
 
    pokemons: PokemonI[] = [];
 
-   user = signal<UserI | undefined>({} as UserI);
+   user = signal<UserI>({} as UserI);
 
    constructor() {
-      this.userService.getCurrentUser().subscribe((user) => {
-         this.user.set(user);
+      this.userService.getUser().subscribe((user) => {
+         if (user) {
+            this.user.set(user ?? ({} as UserI));
 
-         this.getThreePokemons(user?.pokemons ?? []);
+            this.getThreePokemons(user?.pokemons ?? []);
+         } else {
+            this.router.navigate(['/']);
+         }
       });
+   }
+
+   onEditProfile() {
+      this.router.navigate(['/edit']);
    }
 
    getThreePokemons(ids: number[]): void {

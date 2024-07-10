@@ -6,13 +6,16 @@ import { PickPokemonsComponent } from '@profile/components/pick-pokemons/pick-po
 import { LoadingIndicatorComponent } from '@shared/components/loading-indicator/loading-indicator.component';
 import { Router } from '@angular/router';
 import { UserService } from '@shared/services/user/user.service';
-import { SystemUserI } from '@shared/services/user/interfaces/user.interface';
+import {
+   SystemUserI,
+   UserI,
+} from '@shared/services/user/interfaces/user.interface';
 
 @Component({
-   selector: 'app-choose-pokemons',
+   selector: 'app-edit-pokemons',
    standalone: true,
-   templateUrl: './choose-pokemons.component.html',
-   styleUrl: './choose-pokemons.component.scss',
+   templateUrl: './edit-pokemons.component.html',
+   styleUrl: './edit-pokemons.component.scss',
    imports: [
       HeaderComponent,
       ProfileImageComponent,
@@ -21,14 +24,14 @@ import { SystemUserI } from '@shared/services/user/interfaces/user.interface';
       LoadingIndicatorComponent,
    ],
 })
-export class ChoosePokemonsComponent {
+export class EditPokemonsComponent {
    router = inject(Router);
    userService = inject(UserService);
 
-   currentUser: SystemUserI = {} as SystemUserI;
+   currentUser: UserI = {} as UserI;
 
    constructor() {
-      this.userService.getCurrentUser().subscribe((user) => {
+      this.userService.getUser().subscribe((user) => {
          if (user) {
             this.currentUser = user;
          } else {
@@ -41,12 +44,14 @@ export class ChoosePokemonsComponent {
       if (this.currentUser) {
          this.currentUser.pokemons = [...pokemons];
 
-         this.userService.createUser(this.currentUser).subscribe(() => {
-            const user = { ...this.currentUser };
+         this.userService.updateUser(this.currentUser).subscribe(() => {
+            const tempUser: SystemUserI = {
+               ...this.currentUser,
+            } as SystemUserI;
 
-            user.isLoggedIn = true;
+            tempUser.isLoggedIn = true;
 
-            this.userService.updateCurrentUser(user);
+            this.userService.updateCurrentUser(tempUser);
          });
       }
 

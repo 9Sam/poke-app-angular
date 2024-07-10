@@ -3,7 +3,6 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { PreviewPokemonCardComponent } from '../preview-pokemon-card/preview-pokemon-card.component';
 import { UserService } from '@shared/services/user/user.service';
-import { UserI } from '@shared/services/user/interfaces/user.interface';
 import { Router } from '@angular/router';
 import { PokemonI } from '@shared/interfaces/pokemon.interface';
 
@@ -22,20 +21,20 @@ export class PreviewPokemonsComponent implements OnInit {
 
    maxStat: number = 0;
 
-   currentUser: UserI = {} as UserI;
-
    constructor() {}
 
    ngOnInit() {
-      this.userService.getCurrentUser().subscribe((user) => {
-         if (user) {
-            this.currentUser = user;
-         } else {
+      this.userService.getUser().subscribe((user) => {
+         if (!user) {
             this.router.navigate(['/']);
          }
       });
 
       this.updateMaxStat();
+   }
+
+   onEditPokemons() {
+      this.router.navigate(['/pokemons/edit']);
    }
 
    updateMaxStat(): void {

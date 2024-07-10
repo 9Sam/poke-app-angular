@@ -1,6 +1,6 @@
 import { inject, Injectable } from '@angular/core';
 import { Observable, BehaviorSubject, of } from 'rxjs';
-import { UserI } from './interfaces/user.interface';
+import { SystemUserI, UserI } from './interfaces/user.interface';
 import { HobbyService } from '../hobby/hobby.service';
 
 @Injectable({
@@ -9,64 +9,49 @@ import { HobbyService } from '../hobby/hobby.service';
 export class UserService {
    hobbyService = inject(HobbyService);
 
-   currentUser = new BehaviorSubject<UserI | undefined>(undefined);
+   currentUser = new BehaviorSubject<SystemUserI | undefined>(undefined);
 
-   private usersSubject = new BehaviorSubject<UserI[]>([]);
+   getUser(): Observable<UserI | null> {
+      const userLocal = localStorage.getItem('user');
 
-   getUsers(): Observable<UserI[]> {
-      return this.usersSubject.asObservable();
+      if (userLocal) {
+         return of(JSON.parse(userLocal) as UserI);
+      }
+
+      return of(null);
    }
 
-   getUserData(userId: string): Observable<UserI | undefined> {
-      const user = this.usersSubject
-         .getValue()
-         .find((user) => user.id === userId);
-      return of(user);
-   }
-
-   getCurrentUser(): Observable<UserI | undefined> {
+   getCurrentUser(): Observable<SystemUserI | undefined> {
       return this.currentUser.asObservable();
    }
 
-   getUserFromLocalStorage(): Observable<UserI | string | null> {
-      return of(localStorage.getItem('user'));
+   createUser(user: UserI): Observable<UserI> {
+      localStorage.setItem('user', JSON.stringify(user));
+
+      this.currentUser.next(user as SystemUserI);
+
+      return of(user);
    }
 
-   createUser(user: UserI): Observable<UserI> {
-      const users = this.usersSubject.getValue();
-      users.push(user);
-      this.usersSubject.next(users);
-
-      this.hobbyService.createHobby(user.favoriteHobby).subscribe();
-
+   createCurrentUser(user: SystemUserI): Observable<UserI | undefined> {
       this.currentUser.next(user);
 
       return of(user);
    }
 
    updateUser(user: UserI): Observable<UserI | undefined> {
-      const users = this.usersSubject.getValue();
-      const userIndex = users.findIndex((u) => u.id === user.id);
+      localStorage.setItem('user', JSON.stringify(user));
 
-      if (userIndex !== -1) {
-         users[userIndex] = user;
-         this.usersSubject.next(users);
-         return of(user);
-      } else {
-         return of(undefined);
-      }
+      return of(user);
    }
 
-   updateCurrentUser(user: UserI): Observable<UserI | undefined> {
-      const users = this.usersSubject.getValue();
-      const userIndex = users.findIndex((u) => u.id === user.id);
+   updateCurrentUser(user: SystemUserI): Observable<SystemUserI | undefined> {
+      this.currentUser.next(user);
+      return of(user);
+   }
 
-      if (userIndex !== -1) {
-         users[userIndex] = user;
-         this.usersSubject.next(users);
-         return of(user);
-      } else {
-         return of(undefined);
-      }
+   resetUser(): void {
+      localStorage.removeItem('user');
+      this.currentUser.next(undefined);
    }
 }

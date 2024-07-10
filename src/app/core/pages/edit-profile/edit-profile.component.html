@@ -7,6 +7,8 @@
             <div class="profile-image-container">
                <app-profile-image
                   (imageSelectedEvent)="onImageSelected($event)"
+                  [isEditing]="true"
+                  [user]="user()"
                ></app-profile-image>
             </div>
          </div>
@@ -14,7 +16,7 @@
             <div>
                <app-information-form
                   (createUserEvent)="onCreateUserEvent($event)"
-                  [editing]="true"
+                  [isEditing]="true"
                ></app-information-form>
             </div>
          </div>

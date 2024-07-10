@@ -13,7 +13,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatMenuModule } from '@angular/material/menu';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { UserService } from '@shared/services/user/user.service';
-import { UserI } from '@shared/services/user/interfaces/user.interface';
+import { SystemUserI } from '@shared/services/user/interfaces/user.interface';
 
 @Component({
    selector: 'app-navbar',
@@ -36,7 +36,7 @@ export class NavbarComponent {
 
    userService = inject(UserService);
 
-   user: UserI | undefined;
+   user: SystemUserI | undefined;
 
    searchInput = '';
    isSearching = signal(false);
@@ -49,9 +49,11 @@ export class NavbarComponent {
    ];
 
    constructor() {
-      this.userService.currentUser.subscribe((user) => {
-         if (user) {
+      this.userService.getCurrentUser().subscribe((user) => {
+         if (user && user.isLoggedIn) {
             this.user = user;
+         } else {
+            this.user = undefined;
          }
       });
    }

@@ -11,6 +11,7 @@
          <div>
             <app-pick-pokemons
                (pokemonsSelectedEvent)="onPokemonsSelected($event)"
+               [defaultSelectedPokemons]="[2,4,5]"
             ></app-pick-pokemons>
          </div>
       </div>

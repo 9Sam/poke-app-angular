@@ -1,8 +1,11 @@
 import {
    Component,
    inject,
+   Input,
+   OnChanges,
    OnInit,
    output,
+   SimpleChanges,
    ViewEncapsulation,
 } from '@angular/core';
 import { FormControl, FormsModule } from '@angular/forms';
@@ -40,14 +43,16 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
       MatProgressSpinnerModule,
    ],
 })
-export class PickPokemonsComponent implements OnInit {
+export class PickPokemonsComponent implements OnInit, OnChanges {
    pokemonService = inject(PokemonService);
 
    pokemonsSelectedEvent = output<Set<number>>();
 
    pokemonsSub = this.pokemonService.pokemonsSub;
    filteredPokemons: PokemonI[] = [];
-   selectedPokemons = new Set<number>();
+
+   @Input() defaultSelectedPokemons!: number[];
+   selectedPokemons = new Set<number>(this.defaultSelectedPokemons);
 
    searchControl = new FormControl<string | any>('');
    options: any[] = [];
@@ -83,11 +88,40 @@ export class PickPokemonsComponent implements OnInit {
       this.getPokemons();
    }
 
+   ngOnChanges(changes: SimpleChanges) {
+      if (changes['defaultSelectedPokemons']) {
+         this.selectedPokemons = new Set<number>(this.defaultSelectedPokemons);
+         this.updateSelectedPokemons(this.selectedPokemons);
+      }
+   }
+
    getPokemons() {
       this.pokemonService.getPokemons().subscribe((pokemons) => {
-         this.pokemonsSub.next(pokemons);
-         this.filteredPokemons = pokemons;
-         this.options = pokemons;
+         let currentPokemons = {} as PokemonI[];
+
+         if (
+            this.defaultSelectedPokemons &&
+            this.defaultSelectedPokemons.length === 3
+         ) {
+            const mappedFilteredPokemons = pokemons.map((pokemon) => {
+               return {
+                  ...pokemon,
+                  isSelected: this.selectedPokemons.has(pokemon.id),
+                  isAvailable: this.selectedPokemons.has(pokemon.id)
+                     ? true
+                     : false,
+               };
+            });
+
+            this.filteredPokemons = mappedFilteredPokemons;
+            currentPokemons = mappedFilteredPokemons;
+         } else {
+            this.filteredPokemons = pokemons;
+            currentPokemons = pokemons;
+         }
+
+         this.options = currentPokemons;
+         this.pokemonsSub.next(currentPokemons);
       });
    }
 
@@ -143,8 +177,10 @@ export class PickPokemonsComponent implements OnInit {
 
          return this.pokemonsSub
             .getValue()
-            .filter((pokemon) =>
-               pokemon.name.toLowerCase().includes(filterValue),
+            .filter(
+               (pokemon) =>
+                  pokemon.name.toLowerCase().includes(filterValue) ||
+                  pokemon.id.toString().includes(filterValue),
             );
       }
 
