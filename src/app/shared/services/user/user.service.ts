@@ -11,17 +11,14 @@ export class UserService {
 
    currentUser = new BehaviorSubject<SystemUserI | undefined>(undefined);
 
-   private usersSubject = new BehaviorSubject<UserI[]>([]);
+   getUser(): Observable<UserI | null> {
+      const userLocal = localStorage.getItem('user');
 
-   getUsers(): Observable<UserI[]> {
-      return this.usersSubject.asObservable();
-   }
+      if (userLocal) {
+         return of(JSON.parse(userLocal) as UserI);
+      }
 
-   getUserData(userId: string): Observable<UserI | undefined> {
-      const user = this.usersSubject
-         .getValue()
-         .find((user) => user.id === userId);
-      return of(user);
+      return of(null);
    }
 
    getCurrentUser(): Observable<SystemUserI | undefined> {
@@ -29,11 +26,10 @@ export class UserService {
    }
 
    createUser(user: UserI): Observable<UserI> {
-      const users = this.usersSubject.getValue();
-      users.push(user);
-      this.usersSubject.next(users);
+      localStorage.setItem('user', JSON.stringify(user));
 
-      this.hobbyService.createHobby(user.favoriteHobby).subscribe();
+      return of(user);
+   }
 
    createCurrentUser(user: SystemUserI): Observable<UserI | undefined> {
       this.currentUser.next(user);
@@ -42,23 +38,17 @@ export class UserService {
    }
 
    updateUser(user: UserI): Observable<UserI | undefined> {
-      const users = this.usersSubject.getValue();
-      const userIndex = users.findIndex((u) => u.id === user.id);
-
-      if (userIndex !== -1) {
-         users[userIndex] = user;
-         this.usersSubject.next(users);
-         return of(user);
-      } else {
-         return of(undefined);
-      }
+      localStorage.setItem('user', JSON.stringify(user));
+      return of(user);
    }
 
    updateCurrentUser(user: SystemUserI): Observable<SystemUserI | undefined> {
       this.currentUser.next(user);
-         return of(user);
-      } else {
-         return of(undefined);
-      }
+      return of(user);
+   }
+
+   resetUser(): void {
+      localStorage.removeItem('user');
+      this.currentUser.next(undefined);
    }
 }

@@ -1,4 +1,5 @@
 import {
+   AfterViewInit,
    Component,
    ElementRef,
    inject,
@@ -57,20 +58,21 @@ import { LoadingService } from '../../../shared/services/loading/loading.service
    templateUrl: './information-form.component.html',
    styleUrl: './information-form.component.scss',
 })
-export class InformationFormComponent implements OnInit {
+export class InformationFormComponent implements OnInit, AfterViewInit {
    userService = inject(UserService);
    hobbyService = inject(HobbyService);
    announcer = inject(LiveAnnouncer);
    loadingService = inject(LoadingService);
 
-   editing = input<boolean>(false);
+   isEditing = input<boolean>(false);
 
-   loadingSub = this.loadingService.loadingSubject;
    createUserEvent = output<UserI>({});
 
+   loadingSub = this.loadingService.loadingSubject;
    user: Signal<UserI | undefined> = signal(undefined);
    hobbies: string[] = [];
    allHobbies: string[] = [];
+   pokemons: number[] = [];
 
    @ViewChild('hobbyInput') hobbyInput!: ElementRef<HTMLInputElement>;
    @ViewChild('clickable') clickable!: ElementRef<HTMLElement>;
@@ -133,8 +135,8 @@ export class InformationFormComponent implements OnInit {
          this.allHobbies = hobbies;
       });
 
-      if (this.editing()) {
-         this.userService.getCurrentUser().subscribe((user) => {
+      if (this.isEditing()) {
+         this.userService.getUser().subscribe((user) => {
             if (user) {
                this.profileForm.patchValue({
                   name: user.name,
@@ -143,8 +145,25 @@ export class InformationFormComponent implements OnInit {
                   document: user.document,
                   dui: user.dui,
                });
+
+               this.pokemons = user.pokemons;
+
+               this.profileForm.controls['name'].setValue(user.name);
+               this.profileForm.controls['birthday'].setValue(user.birthday);
+               this.profileForm.controls['document'].setValue(user.document);
+               this.profileForm.controls['dui'].setValue(user.dui);
+
+               if (user.favoriteHobby) {
+                  this.hobbies.push(user.favoriteHobby);
+               }
             }
          });
+      }
+   }
+
+   ngAfterViewInit(): void {
+      if (this.isEditing() && this.hobbyInput) {
+         this.hobbyInput.nativeElement.style.display = 'none';
       }
    }
 
@@ -156,8 +175,9 @@ export class InformationFormComponent implements OnInit {
          favoriteHobby: this.hobbies[0] ?? '',
          birthday: this.profileForm.value.birthday,
          document: this.profileForm.value.document,
-         profilePicture: '',
+         profilePicture: this.profileForm.value.profilePicture,
          dui: this.profileForm.value.dui ?? '',
+         pokemons: this.pokemons,
       } as UserI;
 
       this.createUserEvent.emit(user);

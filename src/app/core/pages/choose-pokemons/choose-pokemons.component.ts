@@ -6,7 +6,7 @@ import { PickPokemonsComponent } from '@profile/components/pick-pokemons/pick-po
 import { LoadingIndicatorComponent } from '@shared/components/loading-indicator/loading-indicator.component';
 import { Router } from '@angular/router';
 import { UserService } from '@shared/services/user/user.service';
-import { UserI } from '@shared/services/user/interfaces/user.interface';
+import { SystemUserI } from '@shared/services/user/interfaces/user.interface';
 
 @Component({
    selector: 'app-choose-pokemons',
