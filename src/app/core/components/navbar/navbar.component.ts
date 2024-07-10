@@ -2,6 +2,7 @@ import {
    Component,
    ElementRef,
    inject,
+   OnInit,
    signal,
    ViewChild,
 } from '@angular/core';
@@ -13,7 +14,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatMenuModule } from '@angular/material/menu';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { UserService } from '@shared/services/user/user.service';
-import { SystemUserI } from '@shared/services/user/interfaces/user.interface';
+import { UserI } from '@shared/services/user/interfaces/user.interface';
 
 @Component({
    selector: 'app-navbar',
@@ -31,24 +32,17 @@ import { SystemUserI } from '@shared/services/user/interfaces/user.interface';
    templateUrl: './navbar.component.html',
    styleUrl: './navbar.component.scss',
 })
-export class NavbarComponent {
+export class NavbarComponent implements OnInit {
    @ViewChild('searchInputElem') searchInputElem!: ElementRef;
 
    userService = inject(UserService);
 
-   user: SystemUserI | undefined;
+   user: UserI | undefined;
 
    searchInput = '';
    isSearching = signal(false);
 
-   menuItems = [
-      {
-         label: 'user',
-         value: 'José',
-      },
-   ];
-
-   constructor() {
+   ngOnInit(): void {
       this.userService.getCurrentUser().subscribe((user) => {
          if (user && user.isLoggedIn) {
             this.user = user;
