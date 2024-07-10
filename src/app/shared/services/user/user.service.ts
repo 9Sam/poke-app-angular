@@ -1,6 +1,6 @@
 import { inject, Injectable } from '@angular/core';
 import { Observable, BehaviorSubject, of } from 'rxjs';
-import { SystemUserI, UserI } from './interfaces/user.interface';
+import { UserI } from './interfaces/user.interface';
 import { HobbyService } from '../hobby/hobby.service';
 
 @Injectable({
@@ -9,7 +9,17 @@ import { HobbyService } from '../hobby/hobby.service';
 export class UserService {
    hobbyService = inject(HobbyService);
 
-   currentUser = new BehaviorSubject<SystemUserI | undefined>(undefined);
+   currentUser = new BehaviorSubject<UserI | undefined>(undefined);
+
+   constructor() {
+      this.getUser().subscribe((user) => {
+         if (user && user.isLoggedIn) {
+            this.currentUser.next(user);
+         } else {
+            this.currentUser.next(undefined);
+         }
+      });
+   }
 
    getUser(): Observable<UserI | null> {
       const userLocal = localStorage.getItem('user');
@@ -21,19 +31,19 @@ export class UserService {
       return of(null);
    }
 
-   getCurrentUser(): Observable<SystemUserI | undefined> {
+   getCurrentUser(): Observable<UserI | undefined> {
       return this.currentUser.asObservable();
    }
 
    createUser(user: UserI): Observable<UserI> {
       localStorage.setItem('user', JSON.stringify(user));
 
-      this.currentUser.next(user as SystemUserI);
+      this.currentUser.next(user as UserI);
 
       return of(user);
    }
 
-   createCurrentUser(user: SystemUserI): Observable<UserI | undefined> {
+   createCurrentUser(user: UserI): Observable<UserI | undefined> {
       this.currentUser.next(user);
 
       return of(user);
@@ -45,7 +55,7 @@ export class UserService {
       return of(user);
    }
 
-   updateCurrentUser(user: SystemUserI): Observable<SystemUserI | undefined> {
+   updateCurrentUser(user: UserI): Observable<UserI | undefined> {
       this.currentUser.next(user);
       return of(user);
    }
